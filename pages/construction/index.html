@@ -4,97 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snow | Em Construção</title>
-  <style>
-    /* ===== RESET ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background: linear-gradient(to bottom, #eaf9ff, #cde9f7);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-      color: #222;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    h1 span {
-      color: #0077cc;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 25px;
-      color: #444;
-    }
-
-    img {
-      max-width: 400px;
-      width: 100%;
-      height: auto;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* ===== ANIMAÇÃO DA IMAGEM ===== */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    /* ===== NEVE ===== */
-    .snowflake {
-      position: absolute;
-      top: -10px;
-      color: white;
-      font-size: 1em;
-      opacity: 0.8;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/theme.css">
+  <link rel="stylesheet" href="../../assets/css/construction.css">
 </head>
 <body>
   <h1>❄️ <span>Snow</span> está em construção ❄️</h1>
   <p>Estamos construindo algo incrível. Volte em breve! 🚀</p>
-  <img src="../../assets/images/pinguins_engenheiros.jpg" alt="Pinguins construindo um iglu">
+  <img src="../../assets/images/pinguins_engenheiros.jpg" alt="Pinguins construindo um iglu" class="construction-image float-animation">
   <footer>© 2025 Snow - Todos os direitos reservados</footer>
 
-  <!-- Script para gerar neve -->
-  <script>
-    const body = document.body;
-    for (let i = 0; i < 50; i++) {
-      let snowflake = document.createElement("div");
-      snowflake.classList.add("snowflake");
-      snowflake.innerHTML = "❄";
-      snowflake.style.left = Math.random() * window.innerWidth + "px";
-      snowflake.style.animationDuration = (Math.random() * 5 + 5) + "s";
-      snowflake.style.fontSize = (Math.random() * 10 + 10) + "px";
-      body.appendChild(snowflake);
-    }
-  </script>
+  <a href="../../index.html" class="back-link" title="Voltar ao Início">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 18L5 12L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <script src="../../assets/js/snow.js"></script>
 </body>
 </html>

@@ -21,14 +21,18 @@
 body {
   font-family: var(--font-main);
   background: linear-gradient(to bottom, var(--bg-gradient-start), var(--bg-gradient-end));
+
+  /* Usando Flexbox para garantir alinhamento vertical e horizontal perfeito. */
+  /* Isso segue os princípios de um layout robusto e previsível (Cap. 10). */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  align-items: center; /* Centraliza horizontalmente no eixo cruzado */
+  justify-content: center; /* Centraliza verticalmente no eixo principal */
+  min-height: 100vh; /* Garante que o body ocupe toda a altura da tela, permitindo que o conteúdo cresça se necessário */
+
   overflow: hidden;
   color: var(--text-primary);
-  position: relative;
+  position: relative; /* Necessário para o posicionamento absoluto do footer e da neve */
 }
 
 /* ===== ANIMAÇÃO DE NEVE ===== */
@@ -83,4 +87,28 @@ p {
   color: var(--text-secondary);
   max-width: 500px;
   text-align: center;
+}
+
+.back-link {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    color: var(--text-primary);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    padding: 10px; /* Lei de Fitts: Aumenta a área de clique */
+    border-radius: 50%;
+}
+
+.back-link:hover {
+    opacity: 1;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.back-link svg {
+    stroke: var(--text-primary);
+    width: 24px;
+    height: 24px;
+    display: block;
 }
