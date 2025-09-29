@@ -1,0 +1,86 @@
+/* ===== THEME.CSS ===== */
+/* Estilos compartilhados para todas as páginas do projeto Snow */
+
+:root {
+  --font-main: "Inter", sans-serif;
+  --bg-gradient-start: #eaf9ff;
+  --bg-gradient-end: #cde9f7;
+  --text-primary: #222;
+  --text-secondary: #444;
+  --accent-color: #0077cc;
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --panel-border: rgba(255, 255, 255, 0.9);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background: linear-gradient(to bottom, var(--bg-gradient-start), var(--bg-gradient-end));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--text-primary);
+  position: relative;
+}
+
+/* ===== ANIMAÇÃO DE NEVE ===== */
+.snowflake {
+  position: absolute;
+  top: -20px;
+  color: white;
+  font-size: 1em;
+  opacity: 0.8;
+  animation: fall linear infinite;
+  pointer-events: none; /* Garante que os flocos não interfiram com cliques */
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+}
+
+/* ===== ANIMAÇÃO DE FLUTUAÇÃO ===== */
+.float-animation {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ===== ELEMENTOS COMUNS ===== */
+footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+h1 span {
+  color: var(--accent-color);
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: var(--text-secondary);
+  max-width: 500px;
+  text-align: center;
+}

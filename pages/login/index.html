@@ -1,20 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snow - Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/pages.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snow | Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/theme.css">
+  <style>
+    /* Estilos específicos para a página de login */
+    .login-panel {
+      background: var(--panel-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 3rem;
+      border-radius: 1rem;
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+    }
+    .logo-image {
+      max-width: 200px;
+      margin-bottom: 1rem;
+    }
+    .login-panel p {
+        margin-bottom: 2rem;
+    }
+    .back-link {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        color: var(--text-primary);
+        text-decoration: none;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+    }
+    .back-link:hover {
+        opacity: 1;
+    }
+    .back-link svg {
+        stroke: var(--text-primary);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="logo">
-            <img src="../../assets/images/logo.png" alt="Snow Logo" class="logo-image">
-        </header>
-        <h1>Página de Login</h1>
-        <p>Este é um projeto de página de login em desenvolvimento. Funcionalidades de login serão implementadas em breve.</p>
-        <a href="../../index.html" class="cta">Voltar ao Início</a>
-    </div>
+
+  <div class="login-panel">
+    <header class="logo">
+      <img src="../../assets/images/logo.png" alt="Snow Logo" class="logo-image float-animation">
+    </header>
+    <h1>Acesso em Breve</h1>
+    <p>A funcionalidade de login está sendo preparada. Volte em breve para explorar sua conta.</p>
+  </div>
+
+  <a href="../../index.html" class="back-link" title="Voltar ao Início">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 18L5 12L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <script src="../../assets/js/snow.js"></script>
 </body>
 </html>
