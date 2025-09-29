@@ -1,174 +1,98 @@
 :root {
-  --bg-gradient-start: #F5F7FA;
-  --bg-gradient-end: #E0E5EC;
-  --text-dark: #3D4A5D;
-  --text-light: #7A869A;
-  --accent-color: #FFC400; /* Dourado/Amarelo para o guindaste e CTAs */
-  --panel-bg: #FFFFFF;
-  --border-color: #D1D9E6;
-  --shadow-light: rgba(0, 0, 0, 0.05);
-  --shadow-dark: rgba(0, 0, 0, 0.1);
+  --bg-color: #0a0a0a;
+  --wireframe-color: rgba(255, 255, 255, 0.5);
+  --text-color: rgba(255, 255, 255, 0.8);
+  --font-main: 'Space Grotesk', sans-serif;
 }
 
-* {
+html, body {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--bg-color);
+  font-family: var(--font-main);
+  color: var(--text-color);
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-  color: var(--text-dark);
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
+  perspective: 800px;
+}
+
+.crystal-container {
+  animation: rotate 25s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.crystal {
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+}
+
+.crystal-wireframe {
+  fill: none;
+  stroke: var(--wireframe-color);
+  stroke-width: 1;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg) rotateX(10deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateX(10deg);
+  }
+}
+
+.text-container {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
 }
 
-.container {
-  max-width: 600px;
-  width: 90%;
-  padding: 2rem;
-}
-
-.crane-wrapper {
-  height: 250px; /* Espaço reservado para o guindaste */
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.content h1 {
-  font-family: 'Teko', sans-serif;
-  font-size: 4rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text-dark);
+h1 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
 }
 
-.content p {
-  font-size: 1.1rem;
-  color: var(--text-light);
-  max-width: 450px;
-  margin: 0 auto 2rem auto;
-  line-height: 1.6;
-}
-
-.notify-form {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 2rem;
-}
-
-.notify-form input {
-  font-family: 'Roboto', sans-serif;
-  width: 100%;
-  max-width: 300px;
-  padding: 15px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--panel-bg);
-  font-size: 1rem;
-  transition: box-shadow 0.3s ease;
-}
-
-.notify-form input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--accent-color);
-}
-
-.notify-form button {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--accent-color);
-  color: var(--text-dark);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.notify-form button:hover {
-  transform: translateY(-2px);
-  background-color: #ffcf33;
-}
-
-.footer {
+.back-link {
   position: absolute;
-  bottom: 20px;
-  width: 100%;
+  top: 40px;
+  left: 40px;
+  color: white;
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
 }
 
-.social-links {
-  margin-bottom: 10px;
+.back-link:hover {
+  opacity: 1;
 }
 
-.social-links a {
-  display: inline-block;
-  margin: 0 10px;
-  color: var(--text-light);
-  transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-  color: var(--text-dark);
-}
-
-.social-links svg {
-  width: 24px;
-  height: 24px;
-}
-
-.copyright {
-  font-size: 0.9rem;
-  color: var(--text-light);
-}
-
-/* Animação do Guindaste */
-.swinging-element {
-  animation: swing 4s ease-in-out infinite;
-  transform-origin: 300px 35px; /* Ponto de pivô no gancho do guindaste */
-}
-
-@keyframes swing {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(2deg); }
-  100% { transform: rotate(0deg); }
-}
-
-/* Media Queries para Responsividade */
 @media (max-width: 640px) {
-  .crane-wrapper {
-    height: 200px;
-    margin-bottom: 1rem;
+  h1 {
+    font-size: 1.2rem;
   }
-
-  .content h1 {
-    font-size: 3rem;
+  .crystal {
+    width: 150px;
+    height: 150px;
   }
-
-  .content p {
-    font-size: 1rem;
-  }
-
-  .notify-form {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .notify-form input,
-  .notify-form button {
-    width: 100%;
-    max-width: 350px;
+  .back-link {
+    top: 20px;
+    left: 20px;
   }
 }
