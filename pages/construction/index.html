@@ -3,61 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snow | Em Formação</title>
-  <link rel="stylesheet" href="../../assets/css/construction.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400&display=swap" rel="stylesheet">
+  <title>Snow | Em Construção</title>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(to bottom, #eaf9ff, #cde9f7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h1 span {
+      color: #0077cc;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      color: #444;
+    }
+
+    img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ===== ANIMAÇÃO DA IMAGEM ===== */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* ===== NEVE ===== */
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-  <div class="scene">
-    <div class="crystal-container">
-      <svg class="crystal" viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg">
-        <g class="crystal-wireframe">
-          <polygon points="0,-100 87,-50 87,50 0,100 -87,50 -87,-50" />
-          <line x1="0" y1="-100" x2="0" y2="100" />
-          <line x1="-87" y1="-50" x2="87" y2="50" />
-          <line x1="-87" y1="50" x2="87" y2="-50" />
-        </g>
-      </svg>
-    </div>
-  </div>
+  <h1>❄️ <span>Snow</span> está em construção ❄️</h1>
+  <p>Estamos construindo algo incrível. Volte em breve! 🚀</p>
+  <img src="../../assets/images/pinguins_engenheiros.jpg" alt="Pinguins construindo um iglu">
+  <footer>© 2025 Snow - Todos os direitos reservados</footer>
 
-  <div class="text-container">
-    <h1>Algo novo está se formando.</h1>
-  </div>
-
-  <a href="../../index.html" class="back-link" title="Voltar ao Início">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M11 18L5 12L11 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </a>
-
+  <!-- Script para gerar neve -->
   <script>
-    const scene = document.querySelector('.scene');
-    const crystal = document.querySelector('.crystal');
-
-    scene.addEventListener('mousemove', (e) => {
-      const x = e.clientX / window.innerWidth - 0.5;
-      const y = e.clientY / window.innerHeight - 0.5;
-
-      const rotateX = -y * 20; // Multiplicador para sensibilidade
-      const rotateY = x * 20;
-
-      // Mantém a animação de rotação base e adiciona a inclinação interativa
-      crystal.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-    });
-
-    scene.addEventListener('mouseleave', () => {
-      // Retorna ao estado original suavemente
-      crystal.style.transition = 'transform 0.5s ease-out';
-      crystal.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    });
-
-    scene.addEventListener('mouseenter', () => {
-      crystal.style.transition = 'none';
-    });
+    const body = document.body;
+    for (let i = 0; i < 50; i++) {
+      let snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      snowflake.innerHTML = "❄";
+      snowflake.style.left = Math.random() * window.innerWidth + "px";
+      snowflake.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      snowflake.style.fontSize = (Math.random() * 10 + 10) + "px";
+      body.appendChild(snowflake);
+    }
   </script>
 </body>
 </html>
