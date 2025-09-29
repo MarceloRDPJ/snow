@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../assets/css/pages.css">
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <header class="logo">
             <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 98C23.49 98 2 76.51 2 50S23.49 2 50 2s48 21.49 48 48-21.49 48-48 48z" fill="#0f172a"/>
@@ -17,12 +17,124 @@
             </svg>
             <span class="logo-text">Snow</span>
         </header>
-        <h1>Página em Construção</h1>
-        <p>Nossos pinguins engenheiros estão trabalhando duro para construir algo incrível aqui. Volte em breve!</p>
+
         <div class="illustration-wrapper">
-            <img src="../../assets/images/pinguins_engenheiros.jpg" alt="Pinguins engenheiros a trabalhar numa construção.">
+            <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-title">
+                <title id="svg-title">Ilustração da equipa de pinguins da Snow a construir um iglu, com outros a patinar no fundo.</title>
+                <defs>
+                  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"/>
+                    <feOffset in="blur" dy="8" result="offsetBlur"/>
+                    <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
+                    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                   <radialGradient id="aurora-grad">
+                    <stop offset="0%" stop-color="var(--aurora)" />
+                    <stop offset="100%" stop-color="var(--aurora)" stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+
+                <!-- Camada de Fundo: Patinadores e Aurora -->
+                <path d="M-10 510 L810 510 810 380 Q 400 360 -10 380 Z" fill="#a7c7f7" opacity="0.5"/>
+                <ellipse id="aurora" cx="400" cy="300" rx="300" ry="150" fill="url(#aurora-grad)" opacity="0.1" />
+
+                <g id="skaters">
+                  <g id="skater-1" class="skater" opacity="0.6" transform="translate(0, 360) scale(0.6)">
+                     <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+                     <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+                     <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
+                  </g>
+                   <g id="skater-2" class="skater" opacity="0.5" transform="translate(0, 370) scale(0.5)">
+                     <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+                     <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+                     <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
+                  </g>
+                </g>
+
+                <!-- Camada Principal: Construtores e Iglu -->
+                <g filter="url(#shadow)">
+                  <path d="M-10 510 L810 510 810 320 Q 400 380, -10 320 Z" fill="var(--panel)"/>
+
+                  <g id="crane" transform="translate(250, 320)">
+                    <!-- Base -->
+                    <path d="M-20,0 L20,0 L15,-10 L-15,-10 Z" fill="#475569"/>
+                    <!-- Torre -->
+                    <rect x="-5" y="-150" width="10" height="150" fill="#64748b"/>
+                    <!-- Braço e cabine -->
+                    <g transform="translate(0, -150)">
+                        <polygon points="0,0 180,-30 175,-25 5,-5" fill="var(--accent)"/> <!-- Jib -->
+                        <rect x="-15" y="0" width="30" height="20" fill="var(--primary)"/> <!-- Cabin -->
+                        <!-- Cabo e bloco -->
+                        <g id="crane-arm">
+                            <path d="M140,-25 L140,20" stroke="#0f172a" stroke-width="2"/>
+                            <rect x="130" y="20" width="20" height="20" rx="4" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
+                        </g>
+                    </g>
+                  </g>
+
+                  <g transform="translate(400, 360)">
+                    <path d="M-180 0 a 180 140 0 0 1 360 0 Z" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="3"/>
+                    <path d="M-50 0 L 50 0 L 50 -80 L -50 -80 Z" fill="#e6eef8"/>
+                    <path d="M-180 0 L-140 -20 M -120 0 L -80 -40 M -60 0 L -20 -60 M 20 -60 L 60 0 M 80 -40 L 120 0 M 140 -20 L 180 0" stroke="var(--ice-shadow)" stroke-width="3"/>
+                    <path d="M-140 -20 a 140 110 0 0 1 280 0" fill="none" stroke="var(--ice-shadow)" stroke-width="3"/>
+                    <path d="M-80 -40 a 80 60 0 0 1 160 0" fill="none" stroke="var(--ice-shadow)" stroke-width="3"/>
+                    <rect x="200" y="-20" width="40" height="20" rx="4" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
+                    <rect x="210" y="-50" width="40" height="20" rx="4" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
+                  </g>
+
+                  <g id="penguin-builder" transform="translate(560, 240)">
+                    <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+                    <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+                    <circle cx="-22" cy="25" r="8" fill="#0f172a"/>
+                    <circle cx="22" cy="25" r="8" fill="#0f172a"/>
+                    <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
+                    <g transform="translate(0, 15)">
+                      <path d="M0 -35 a 30 25 0 0 1 0 50 a 30 25 0 0 1 0 -50" fill="var(--accent)"/>
+                      <rect x="-35" y="-10" width="70" height="8" rx="4" fill="#fcd34d"/>
+                    </g>
+                    <g id="builder-arm" transform="translate(-50, 60)">
+                        <path d="M-20 0 C-20,20 10,20 10,0 L 0,-10 Z" fill="#475569"/>
+                        <rect x="-30" y="-5" width="20" height="10" rx="5" fill="#0f172a"/>
+                    </g>
+                  </g>
+
+                  <g id="penguin-carrier" transform="translate(150, 280)">
+                     <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+                     <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+                     <circle cx="-22" cy="25" r="8" fill="#0f172a"/>
+                     <circle cx="22" cy="25" r="8" fill="#0f172a"/>
+                     <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
+                     <g transform="translate(0, 15)">
+                       <path d="M0 -35 a 30 25 0 0 1 0 50 a 30 25 0 0 1 0 -50" fill="var(--accent)"/>
+                       <rect x="-35" y="-10" width="70" height="8" rx="4" fill="#fcd34d"/>
+                     </g>
+                     <rect x="-80" y="30" width="160" height="40" rx="5" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
+                  </g>
+
+                  <g id="penguin-architect" transform="translate(680, 280)">
+                    <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+                    <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+                    <circle cx="-22" cy="25" r="8" fill="#0f172a"/>
+                    <circle cx="22" cy="25" r="8" fill="#0f172a"/>
+                    <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
+                    <g transform="translate(0, 15)">
+                      <path d="M0 -35 a 30 25 0 0 1 0 50 a 30 25 0 0 1 0 -50" fill="var(--accent)"/>
+                      <rect x="-35" y="-10" width="70" height="8" rx="4" fill="#fcd34d"/>
+                    </g>
+                    <g transform="rotate(15 -40 50)">
+                      <rect x="-90" y="40" width="50" height="60" rx="5" fill="var(--primary)"/>
+                      <rect x="-85" y="45" width="40" height="3" rx="1.5" fill="var(--ice-blue)"/>
+                      <rect x="-85" y="55" width="40" height="3" rx="1.5" fill="var(--ice-blue)"/>
+                      <rect x="-85" y="65" width="20" height="3" rx="1.5" fill="var(--ice-blue)"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
         </div>
+
+        <h1>Construindo o futuro. Bloco por bloco.</h1>
+        <p>A nossa equipa de engenheiros está no Ártico, a trabalhar na construção de uma nova funcionalidade incrível. Agradecemos a sua paciência enquanto damos os toques finais!</p>
         <a href="../../index.html" class="cta">Voltar ao Início</a>
-    </div>
+    </main>
 </body>
 </html>
