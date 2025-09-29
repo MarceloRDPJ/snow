@@ -17,6 +17,7 @@
     --panel: #ffffff;
     --ice-blue: #dbeafe;
     --ice-shadow: #c7d2fe;
+    --aurora: #a7f3d0;
     --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
   }
 
@@ -131,34 +132,31 @@
     50% { transform: translateY(-4px); }
   }
   @keyframes arm-place {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-10deg); }
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
   }
   @keyframes skate-loop {
     from { transform: translateX(-150px); }
     to { transform: translateX(950px); }
   }
-  @keyframes snow-fall {
-    from { transform: translateY(-10px) translateX(var(--x-start)); opacity: 0; }
-    to { transform: translateY(100px) translateX(var(--x-end)); opacity: 0.8; }
+   @keyframes aurora-glow {
+    0% { opacity: 0.1; transform: scale(1) translateX(0); }
+    50% { opacity: 0.25; transform: scale(1.05) translateX(10px); }
+    100% { opacity: 0.1; transform: scale(1) translateX(0); }
   }
 
-  #penguin-builder, #penguin-carrier { animation: float-subtle 4s ease-in-out infinite; }
+  #penguin-builder, #penguin-carrier, #penguin-architect { animation: float-subtle 4s ease-in-out infinite; }
   #penguin-carrier { animation-delay: 0.5s; }
+  #penguin-architect { animation-delay: 0.3s; }
   #builder-arm { animation: arm-place 2.5s ease-in-out infinite; transform-origin: 90% 10%; }
   .skater { animation: skate-loop linear infinite; }
   #skater-1 { animation-duration: 20s; animation-delay: 0s; }
   #skater-2 { animation-duration: 25s; animation-delay: 8s; }
-  #skater-3 { animation-duration: 22s; animation-delay: 15s; }
-  .snow-flake { animation: snow-fall linear infinite; opacity: 0; }
-  #flake-1 { --x-start: 0px; --x-end: 20px; animation-duration: 8s; animation-delay: 0s; }
-  #flake-2 { --x-start: -10px; --x-end: 10px; animation-duration: 10s; animation-delay: 2s; }
-  #flake-3 { --x-start: 10px; --x-end: -10px; animation-duration: 7s; animation-delay: 5s; }
-  #flake-4 { --x-start: -5px; --x-end: 5px; animation-duration: 9s; animation-delay: 3s; }
+  #aurora { animation: aurora-glow 12s ease-in-out infinite; }
 
   @media (prefers-reduced-motion: reduce) {
     .container { transition: none; }
-    #penguin-builder, #penguin-carrier, #builder-arm, .skater, .snow-flake { animation: none; }
+    #penguin-builder, #penguin-carrier, #penguin-architect, #builder-arm, .skater, #aurora { animation: none; }
   }
 </style>
 </head>
@@ -184,10 +182,16 @@
             <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
+           <radialGradient id="aurora-grad">
+            <stop offset="0%" stop-color="var(--aurora)" />
+            <stop offset="100%" stop-color="var(--aurora)" stop-opacity="0" />
+          </radialGradient>
         </defs>
         
-        <!-- Camada de Fundo: Patinadores -->
+        <!-- Camada de Fundo: Patinadores e Aurora -->
         <path d="M-10 510 L810 510 810 380 Q 400 360 -10 380 Z" fill="#a7c7f7" opacity="0.5"/>
+        <ellipse id="aurora" cx="400" cy="300" rx="300" ry="150" fill="url(#aurora-grad)" opacity="0.1" />
+
         <g id="skaters">
           <g id="skater-1" class="skater" opacity="0.6" transform="translate(0, 360) scale(0.6)">
              <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
@@ -195,10 +199,9 @@
              <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
           </g>
            <g id="skater-2" class="skater" opacity="0.5" transform="translate(0, 370) scale(0.5)">
-             <use href="#skater-1 > *"/>
-          </g>
-           <g id="skater-3" class="skater" opacity="0.7" transform="translate(0, 355) scale(0.7)">
-             <use href="#skater-1 > *"/>
+             <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+             <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+             <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
           </g>
         </g>
         
@@ -208,13 +211,15 @@
           
           <g transform="translate(400, 360)">
             <path d="M-180 0 a 180 140 0 0 1 360 0 Z" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="3"/>
-            <path d="M-50 0 L 50 0 L 50 -80 L -50 -80 Z" fill="#f0f4fa"/>
+            <path d="M-50 0 L 50 0 L 50 -80 L -50 -80 Z" fill="#e6eef8"/>
             <path d="M-180 0 L-140 -20 M -120 0 L -80 -40 M -60 0 L -20 -60 M 20 -60 L 60 0 M 80 -40 L 120 0 M 140 -20 L 180 0" stroke="var(--ice-shadow)" stroke-width="3"/>
             <path d="M-140 -20 a 140 110 0 0 1 280 0" fill="none" stroke="var(--ice-shadow)" stroke-width="3"/>
             <path d="M-80 -40 a 80 60 0 0 1 160 0" fill="none" stroke="var(--ice-shadow)" stroke-width="3"/>
+            <rect x="200" y="-20" width="40" height="20" rx="4" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
+            <rect x="210" y="-50" width="40" height="20" rx="4" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
           </g>
           
-          <g id="penguin-builder" transform="translate(520, 240)">
+          <g id="penguin-builder" transform="translate(560, 240)">
             <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
             <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
             <circle cx="-22" cy="25" r="8" fill="#0f172a"/>
@@ -224,7 +229,10 @@
               <path d="M0 -35 a 30 25 0 0 1 0 50 a 30 25 0 0 1 0 -50" fill="var(--accent)"/>
               <rect x="-35" y="-10" width="70" height="8" rx="4" fill="#fcd34d"/>
             </g>
-            <rect id="builder-arm" x="-80" y="20" width="30" height="60" rx="15" fill="#0f172a"/>
+            <g id="builder-arm" transform="translate(-50, 60)">
+                <path d="M-20 0 C-20,20 10,20 10,0 L 0,-10 Z" fill="#475569"/>
+                <rect x="-30" y="-5" width="20" height="10" rx="5" fill="#0f172a"/>
+            </g>
           </g>
           
           <g id="penguin-carrier" transform="translate(150, 280)">
@@ -239,14 +247,24 @@
              </g>
              <rect x="-80" y="30" width="160" height="40" rx="5" fill="var(--ice-blue)" stroke="var(--ice-shadow)" stroke-width="2"/>
           </g>
-        </g>
-        
-        <!-- Neve caindo -->
-         <g id="snowflakes-fg">
-          <circle id="flake-1" class="snow-flake" cx="200" r="5" fill="var(--ice-shadow)" opacity="0.5"/>
-          <circle id="flake-2" class="snow-flake" cx="400" r="4" fill="var(--ice-shadow)" opacity="0.5"/>
-          <circle id="flake-3" class="snow-flake" cx="600" r="6" fill="var(--ice-shadow)" opacity="0.5"/>
-          <circle id="flake-4" class="snow-flake" cx="750" r="4" fill="var(--ice-shadow)" opacity="0.5"/>
+
+          <g id="penguin-architect" transform="translate(680, 280)">
+            <path d="M0,130 C-40,130 -70,100 -70,60 C-70,20 -40,-10 0,-10 C40,-10 70,20 70,60 C70,100 40,130 0,130 Z" fill="#0f172a"/>
+            <path d="M0,120 C-30,120 -55,95 -55,60 V5 C-55,0 -30,10 0,10 C30,10 55,0 55,5 V60 C55,95 30,120 0,120Z" fill="white"/>
+            <circle cx="-22" cy="25" r="8" fill="#0f172a"/>
+            <circle cx="22" cy="25" r="8" fill="#0f172a"/>
+            <polygon points="-15,0 15,0 0,-15" fill="var(--accent)"/>
+            <g transform="translate(0, 15)">
+              <path d="M0 -35 a 30 25 0 0 1 0 50 a 30 25 0 0 1 0 -50" fill="var(--accent)"/>
+              <rect x="-35" y="-10" width="70" height="8" rx="4" fill="#fcd34d"/>
+            </g>
+            <g transform="rotate(15 -40 50)">
+              <rect x="-90" y="40" width="50" height="60" rx="5" fill="var(--primary)"/>
+              <rect x="-85" y="45" width="40" height="3" rx="1.5" fill="var(--ice-blue)"/>
+              <rect x="-85" y="55" width="40" height="3" rx="1.5" fill="var(--ice-blue)"/>
+              <rect x="-85" y="65" width="20" height="3" rx="1.5" fill="var(--ice-blue)"/>
+            </g>
+          </g>
         </g>
       </svg>
     </div>
