@@ -1,0 +1,174 @@
+:root {
+  --bg-gradient-start: #F5F7FA;
+  --bg-gradient-end: #E0E5EC;
+  --text-dark: #3D4A5D;
+  --text-light: #7A869A;
+  --accent-color: #FFC400; /* Dourado/Amarelo para o guindaste e CTAs */
+  --panel-bg: #FFFFFF;
+  --border-color: #D1D9E6;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-dark: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  width: 90%;
+  padding: 2rem;
+}
+
+.crane-wrapper {
+  height: 250px; /* Espaço reservado para o guindaste */
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.content h1 {
+  font-family: 'Teko', sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 450px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.6;
+}
+
+.notify-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.notify-form input {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  max-width: 300px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--panel-bg);
+  font-size: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.notify-form input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-color);
+}
+
+.notify-form button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--text-dark);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.notify-form button:hover {
+  transform: translateY(-2px);
+  background-color: #ffcf33;
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+.social-links {
+  margin-bottom: 10px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--text-light);
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--text-dark);
+}
+
+.social-links svg {
+  width: 24px;
+  height: 24px;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Animação do Guindaste */
+.swinging-element {
+  animation: swing 4s ease-in-out infinite;
+  transform-origin: 300px 35px; /* Ponto de pivô no gancho do guindaste */
+}
+
+@keyframes swing {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 640px) {
+  .crane-wrapper {
+    height: 200px;
+    margin-bottom: 1rem;
+  }
+
+  .content h1 {
+    font-size: 3rem;
+  }
+
+  .content p {
+    font-size: 1rem;
+  }
+
+  .notify-form {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .notify-form input,
+  .notify-form button {
+    width: 100%;
+    max-width: 350px;
+  }
+}
