@@ -1,13 +1,11 @@
 # Projeto Snow
 
-Este é o repositório principal para os projetos da empresa fictícia Snow.
+Este repositório contém os projetos da empresa fictícia Snow.
 
-## Estrutura de Diretórios
+## Estrutura de Arquivos
 
-O diretório `snow` na raiz contém todos os subprojetos.
+-   **`index.html`**: A página principal do site, que atualmente exibe uma mensagem de "em construção".
+-   **`snow/`**: Um diretório que abriga todos os subprojetos e funcionalidades em desenvolvimento.
+    -   **`snow/pagina_de_login/`**: Contém os arquivos para o projeto da página de login.
 
-- `index.html`: Um hub central que fornece links para todos os projetos ativos.
-- `snow/pagina_de_login/`: Contém os arquivos para a página de login.
-- `snow/pagina_em_construcao/`: Contém os arquivos para a página "em construção".
-
-Cada pasta de projeto é autocontida. Para visualizar o hub de projetos, abra o `index.html` principal no seu navegador.
+Para visualizar a página "em construção", basta abrir o `index.html` na raiz. Os projetos em desenvolvimento podem ser acessados através de suas respectivas pastas dentro do diretório `snow`.
