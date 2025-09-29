@@ -8,7 +8,7 @@ Cada projeto está contido em sua própria pasta na raiz deste repositório. Nã
 
 ### Projetos Atuais:
 
--   **`/pagina_em_construcao`**: Uma página estática que exibe uma mensagem de "site em construção".
--   **`/pagina_de_login`**: Um projeto para uma página de login.
+-   **`/pagina_em_construcao`**: Uma página estática e animada que exibe uma mensagem de "site em construção". O design original foi preservado aqui.
+-   **`/pagina_de_login`**: Um projeto para uma página de login (atualmente um placeholder).
 
-Para visualizar um projeto específico, navegue até a sua pasta e abra o arquivo `index.html` correspondente.
+Para visualizar um projeto específico, navegue até a sua pasta e abra o arquivo `index.html` correspondente no seu navegador. Para publicar no GitHub Pages, cada pasta pode ser servida como um site independente.
