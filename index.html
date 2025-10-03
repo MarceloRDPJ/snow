@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snow</title>
+    <title>Snow - Welcome</title>
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/lobby.css">
 </head>
 <body>
-    <div id="world"></div>
-    <div class="container">
-        <header class="logo">
-            <img src="assets/images/logo.svg" alt="Snow Logo"/>
-        </header>
-        <main class="content">
+    <!-- O canvas para a cena 3D será inserido aqui pelo JavaScript -->
+    <div id="three-container"></div>
+
+    <!-- Seções de conteúdo que serão reveladas com o scroll -->
+    <div id="content-container">
+        <section class="content-section" id="intro">
             <h1>SNOW</h1>
-            <p>Experience the future.</p>
-        </main>
-        <nav class="navigation">
-            <a href="#">Login</a>
-            <a href="#">Projects</a>
-        </nav>
+            <p>Role para explorar</p>
+        </section>
+        <section class="content-section" id="login-section">
+            <h2>Página de Login</h2>
+            <p>Acesse sua conta para explorar nossos serviços.</p>
+            <a href="pages/login/index.html">Entrar</a>
+        </section>
+        <section class="content-section" id="construction-section">
+            <h2>Em Construção</h2>
+            <p>Veja o que nossa equipe está construindo.</p>
+            <a href="pages/construction/index.html">Explorar</a>
+        </section>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" type="module"></script>
 </body>
 </html>
