@@ -1,92 +1,70 @@
-/* ===== LOBBY.CSS ===== */
-/* Estilos específicos para a página principal (Lobby) */
+/* ===== LOBBY.CSS - FUTURISTIC REDESIGN ===== */
 
-main.container {
+.container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Pushes logo/content to center and nav to bottom */
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  height: 100vh;
+  padding: 3rem 2rem;
+}
+
+.logo {
+  position: absolute;
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px var(--color-glow));
+  animation: float 6s ease-in-out infinite;
+}
+
+.logo img {
   width: 100%;
 }
 
-.logo-image {
-  max-width: 250px;
-  width: 100%;
-  height: auto;
-  margin-bottom: 1rem;
+.content {
+  /* This container is for the main text, which is already centered by the parent */
+  margin-top: 100px; /* Pushes content down a bit from the logo */
 }
 
 .navigation {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 3rem;
-  width: 100%;
-  max-width: 700px;
-}
-
-.nav-card {
-  background: var(--panel-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  border: 1px solid var(--panel-border);
-  padding: 2rem;
-  width: 320px;
-  text-align: left;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-
-.nav-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
-}
-
-.nav-card h2 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: var(--accent-color);
-}
-
-.nav-card p {
-  font-size: 1rem;
-  margin: 0;
-  line-height: 1.5;
-  color: var(--text-primary);
-}
-
-.card-link {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  border-radius: 1rem;
+  bottom: 3rem;
+  display: flex;
+  gap: 2rem;
 }
 
-.card-link:focus-visible {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
+.navigation a {
+  font-family: var(--font-primary);
+  text-decoration: none;
+  color: var(--color-secondary);
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  .navigation {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+.navigation a:hover {
+  color: var(--color-bg);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px var(--color-glow);
+}
+
+/* Keyframe animation for the floating logo */
+@keyframes float {
+  0% {
+    transform: translate(-50%, 0px);
   }
-  .nav-card {
-    width: 100%;
-    max-width: 400px;
+  50% {
+    transform: translate(-50%, -15px);
   }
-  h1 {
-    font-size: 2.2rem;
+  100% {
+    transform: translate(-50%, 0px);
   }
 }

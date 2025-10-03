@@ -1,15 +1,16 @@
-/* ===== THEME.CSS ===== */
-/* Estilos compartilhados para todas as páginas do projeto Snow */
+/* ===== THEME.CSS - FUTURISTIC REDESIGN ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap');
 
 :root {
-  --font-main: "Inter", sans-serif;
-  --bg-gradient-start: #eaf9ff;
-  --bg-gradient-end: #cde9f7;
-  --text-primary: #222;
-  --text-secondary: #444;
-  --accent-color: #0077cc;
-  --panel-bg: rgba(255, 255, 255, 0.7);
-  --panel-border: rgba(255, 255, 255, 0.9);
+  --font-primary: 'Orbitron', sans-serif; /* For titles */
+  --font-secondary: 'Roboto', sans-serif;   /* For body text */
+
+  --color-bg: #000212;
+  --color-primary: #00d9ff;
+  --color-secondary: #ffffff;
+  --color-glow: rgba(0, 217, 255, 0.5);
+  --color-overlay-bg: rgba(10, 25, 47, 0.0);
 }
 
 * {
@@ -19,96 +20,51 @@
 }
 
 body {
-  font-family: var(--font-main);
-  background: linear-gradient(to bottom, var(--bg-gradient-start), var(--bg-gradient-end));
-
-  /* Usando Flexbox para garantir alinhamento vertical e horizontal perfeito. */
-  /* Isso segue os princípios de um layout robusto e previsível (Cap. 10). */
+  font-family: var(--font-secondary);
+  background-color: var(--color-bg);
+  color: var(--color-secondary);
+  overflow: hidden; /* Prevents scrollbars from appearing */
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Centraliza horizontalmente no eixo cruzado */
-  justify-content: center; /* Centraliza verticalmente no eixo principal */
-  min-height: 100vh; /* Garante que o body ocupe toda a altura da tela, permitindo que o conteúdo cresça se necessário */
-
-  overflow: hidden;
-  color: var(--text-primary);
-  position: relative; /* Necessário para o posicionamento absoluto do footer e da neve */
-}
-
-/* ===== ANIMAÇÃO DE NEVE ===== */
-.snowflake {
-  position: absolute;
-  top: -20px;
-  color: white;
-  font-size: 1em;
-  opacity: 0.8;
-  animation: fall linear infinite;
-  pointer-events: none; /* Garante que os flocos não interfiram com cliques */
-}
-
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
-}
-
-/* ===== ANIMAÇÃO DE FLUTUAÇÃO ===== */
-.float-animation {
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-/* ===== ELEMENTOS COMUNS ===== */
-footer {
-  position: absolute;
-  bottom: 20px;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   text-align: center;
 }
 
-h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+#world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1; /* Behind the UI */
 }
 
-h1 span {
-  color: var(--accent-color);
+.container {
+  position: relative;
+  z-index: 2; /* In front of the 3D world */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  height: 100%;
+}
+
+h1 {
+  font-family: var(--font-primary);
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-shadow: 0 0 10px var(--color-glow), 0 0 20px var(--color-glow), 0 0 40px var(--color-glow);
 }
 
 p {
   font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: var(--text-secondary);
-  max-width: 500px;
-  text-align: center;
-}
-
-.back-link {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    color: var(--text-primary);
-    text-decoration: none;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-    padding: 10px; /* Lei de Fitts: Aumenta a área de clique */
-    border-radius: 50%;
-}
-
-.back-link:hover {
-    opacity: 1;
-    background-color: rgba(0,0,0,0.1);
-}
-
-.back-link svg {
-    stroke: var(--text-primary);
-    width: 24px;
-    height: 24px;
-    display: block;
+  font-weight: 300;
+  color: var(--color-secondary);
+  opacity: 0.8;
+  margin-top: 0.5rem;
 }
