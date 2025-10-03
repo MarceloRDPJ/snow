@@ -1,70 +1,44 @@
-/* ===== LOBBY.CSS - FUTURISTIC REDESIGN ===== */
+/* ===== LOBBY.CSS - SCROLLING JOURNEY REDESIGN ===== */
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Pushes logo/content to center and nav to bottom */
-  align-items: center;
-  height: 100vh;
-  padding: 3rem 2rem;
+.content-section {
+    /* Each section is fixed to the viewport to appear on top of the 3D scene */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 800px; /* Limit content width */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+
+    /* Sections start invisible and will be faded in by JavaScript */
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when invisible */
+    transition: opacity 0.7s ease-in-out;
 }
 
-.logo {
-  position: absolute;
-  top: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 10px var(--color-glow));
-  animation: float 6s ease-in-out infinite;
+.content-section.visible {
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction when visible */
 }
 
-.logo img {
-  width: 100%;
+/* Give the main container a large height to create scroll space */
+#content-container {
+    height: 500vh;
 }
 
-.content {
-  /* This container is for the main text, which is already centered by the parent */
-  margin-top: 100px; /* Pushes content down a bit from the logo */
+/* We can make the first section visible by default */
+#intro {
+    opacity: 1;
+    height: 100vh; /* The first section can be shorter */
 }
 
-.navigation {
-  position: absolute;
-  bottom: 3rem;
-  display: flex;
-  gap: 2rem;
-}
-
-.navigation a {
-  font-family: var(--font-primary);
-  text-decoration: none;
-  color: var(--color-secondary);
-  font-size: 1rem;
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.navigation a:hover {
-  color: var(--color-bg);
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  box-shadow: 0 0 15px var(--color-glow);
-}
-
-/* Keyframe animation for the floating logo */
-@keyframes float {
-  0% {
-    transform: translate(-50%, 0px);
-  }
-  50% {
-    transform: translate(-50%, -15px);
-  }
-  100% {
-    transform: translate(-50%, 0px);
-  }
+/* Add some extra space at the top of the subsequent sections */
+#login-section, #construction-section {
+    padding-top: 20vh;
 }

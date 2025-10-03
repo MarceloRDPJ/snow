@@ -1,16 +1,13 @@
-/* ===== THEME.CSS - FUTURISTIC REDESIGN ===== */
+/* ===== THEME.CSS - SCROLLING JOURNEY REDESIGN ===== */
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
 
 :root {
-  --font-primary: 'Orbitron', sans-serif; /* For titles */
-  --font-secondary: 'Roboto', sans-serif;   /* For body text */
-
-  --color-bg: #000212;
-  --color-primary: #00d9ff;
-  --color-secondary: #ffffff;
-  --color-glow: rgba(0, 217, 255, 0.5);
-  --color-overlay-bg: rgba(10, 25, 47, 0.0);
+  --font-main: "Montserrat", sans-serif;
+  --color-bg: #0d1a26; /* Deep, dark blue, like a polar night */
+  --text-primary: #ffffff;
+  --text-secondary: #cdd5dc;
+  --accent-color: #38a1f2; /* Icy blue */
 }
 
 * {
@@ -20,51 +17,67 @@
 }
 
 body {
-  font-family: var(--font-secondary);
+  font-family: var(--font-main);
   background-color: var(--color-bg);
-  color: var(--color-secondary);
-  overflow: hidden; /* Prevents scrollbars from appearing */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
+  color: var(--text-primary);
+  /* The body will have a large height to enable scrolling */
+  /* This will be controlled more by the content sections */
 }
 
-#world {
-  position: absolute;
+/* Container for the 3D canvas */
+#three-container {
+  position: fixed; /* Stays in the background */
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1; /* Behind the UI */
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.container {
+/* Container for the HTML content that scrolls over the canvas */
+#content-container {
   position: relative;
-  z-index: 2; /* In front of the 3D world */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  height: 100%;
+  z-index: 2;
+  width: 100%;
+  /* The total height of this container will drive the scrollability */
+}
+
+h1, h2 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 h1 {
-  font-family: var(--font-primary);
   font-size: 4rem;
-  font-weight: 700;
-  letter-spacing: 0.2rem;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  text-shadow: 0 0 10px var(--color-glow), 0 0 20px var(--color-glow), 0 0 40px var(--color-glow);
+}
+
+h2 {
+  font-size: 2.5rem;
 }
 
 p {
   font-size: 1.2rem;
   font-weight: 300;
-  color: var(--color-secondary);
-  opacity: 0.8;
-  margin-top: 0.5rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 1rem auto;
+  line-height: 1.6;
+}
+
+a {
+    display: inline-block;
+    color: var(--accent-color);
+    text-decoration: none;
+    border: 1px solid var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+a:hover {
+    background-color: var(--accent-color);
+    color: var(--color-bg);
 }
