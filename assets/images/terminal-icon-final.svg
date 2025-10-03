@@ -1,0 +1,4 @@
+<svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 25 H80 V75 H20 Z" stroke="var(--accent-color)" stroke-width="4" rx="5"/>
+    <path d="M30 40 L45 40 M30 55 L60 55" stroke="var(--accent-color)" stroke-width="4" stroke-linecap="round"/>
+</svg>

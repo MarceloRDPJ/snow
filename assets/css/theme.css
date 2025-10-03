@@ -46,6 +46,7 @@ h1, h2 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Legibility shadow */
 }
 
 h1 {
@@ -63,6 +64,7 @@ p {
   max-width: 500px;
   margin: 1rem auto;
   line-height: 1.6;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8); /* Legibility shadow */
 }
 
 a {

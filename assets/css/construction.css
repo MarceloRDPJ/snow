@@ -1,8 +1,56 @@
-/* ===== CONSTRUCTION.CSS ===== */
-/* Estilos específicos para a página "Em Construção" */
+/* ===== CONSTRUCTION.CSS - SCROLLING JOURNEY REDESIGN ===== */
 
-.construction-image {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
+/* Give the main container a large height to create scroll space */
+#content-container {
+    height: 300vh; /* Shorter journey than the lobby */
+}
+
+.content-section {
+    /* Each section is fixed to the viewport to appear on top of the 3D scene */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 800px; /* Limit content width */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+
+    /* Sections start invisible and will be faded in by JavaScript */
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when invisible */
+    transition: opacity 0.7s ease-in-out;
+}
+
+.content-section.visible {
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction when visible */
+}
+
+/* The first section's visibility is now handled by the initial JS call */
+
+/* Style the sections that have an icon and text side-by-side */
+#tech-explanation, #threejs-explanation {
+    flex-direction: row;
+    gap: 3rem;
+    text-align: left;
+    align-items: center; /* Vertically center icon and text block */
+}
+
+.icon-container {
+    flex-shrink: 0; /* Prevent the icon from being squashed */
+}
+
+#tech-explanation .text-container, #threejs-explanation .text-container {
+    flex: 1; /* Allow text container to take up remaining space */
+}
+
+/* Add a distinct style for the back button on this page if needed */
+.back-link {
+    z-index: 10; /* Ensure it's above the 3D scene */
 }
