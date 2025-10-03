@@ -21,9 +21,17 @@ export default class ScrollAnimation {
         // const curveObject = new THREE.Line(geometry, material);
         // this.world.scene.add(curveObject);
 
-        // Get references to the content sections
-        this.loginSection = document.getElementById('login-section');
-        this.constructionSection = document.getElementById('construction-section');
+        // Define the scroll thresholds for each section
+        this.sections = [
+            { id: 'intro', start: 0, end: 0.3 },
+            { id: 'login-section', start: 0.4, end: 0.7 },
+            { id: 'construction-section', start: 0.8, end: 1.0 }
+        ];
+        this.sectionElements = this.sections.map(s => document.getElementById(s.id));
+
+        // For smooth camera movement (lerp)
+        this.cameraTarget = new THREE.Vector3();
+        this.lookAtTarget = new THREE.Vector3(0, 0, -20);
 
         // 2. Listen to the scroll event
         window.addEventListener('scroll', this.onScroll.bind(this));
@@ -36,24 +44,32 @@ export default class ScrollAnimation {
         const maxScroll = document.body.scrollHeight - window.innerHeight;
         const scrollPercent = scrollY / maxScroll;
 
-        // 3. Update camera position based on scroll
+        // 3. Set the TARGET camera position based on scroll
         const point = this.curve.getPointAt(scrollPercent);
-        this.camera.position.copy(point);
+        this.cameraTarget.copy(point);
 
-        // Always make the camera look at a point in the distance
-        this.camera.lookAt(0, 0, -20);
+        // 4. Update content visibility based on scroll (robust approach)
 
-        // 4. Update content visibility based on scroll
-        if (scrollPercent > 0.4 && scrollPercent < 0.7) {
-            this.loginSection.classList.add('visible');
-        } else {
-            this.loginSection.classList.remove('visible');
+        // First, hide all sections
+        this.sectionElements.forEach(element => {
+            element.classList.remove('visible');
+        });
+
+        // Then, find the one active section and show it
+        const activeSection = this.sections.find(section => {
+            return scrollPercent >= section.start && scrollPercent < section.end;
+        });
+
+        if (activeSection) {
+            document.getElementById(activeSection.id).classList.add('visible');
         }
+    }
 
-        if (scrollPercent > 0.8) {
-            this.constructionSection.classList.add('visible');
-        } else {
-            this.constructionSection.classList.remove('visible');
-        }
+    update() {
+        // Move camera smoothly towards the target position
+        this.camera.position.lerp(this.cameraTarget, 0.05);
+
+        // This can be used if you want the lookAt point to also move smoothly
+        // this.camera.lookAt(this.lookAtTarget);
     }
 }

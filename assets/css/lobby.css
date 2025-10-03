@@ -1,44 +1,78 @@
-/* ===== LOBBY.CSS - SCROLLING JOURNEY REDESIGN ===== */
+/* ===== LOBBY.CSS - REFACTORED FOR STABILITY ===== */
 
+/* The main section container is only responsible for being a fixed block in the center. */
 .content-section {
-    /* Each section is fixed to the viewport to appear on top of the 3D scene */
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 800px; /* Limit content width */
+    width: 90%;
+    max-width: 800px;
 
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 2rem;
 
-    /* Sections start invisible and will be faded in by JavaScript */
+    /* Controls visibility */
     opacity: 0;
-    pointer-events: none; /* Prevent interaction when invisible */
+    pointer-events: none;
     transition: opacity 0.7s ease-in-out;
 }
 
 .content-section.visible {
     opacity: 1;
-    pointer-events: auto; /* Allow interaction when visible */
+    pointer-events: auto;
 }
 
-/* Give the main container a large height to create scroll space */
+/* This new inner container handles the layout of its children (icon and text) */
+.inner-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem; /* Space between icon and text */
+    width: 100%;
+}
+
+.icon-container {
+    flex: 0 0 80px; /* Base width for the icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-color);
+}
+
+.text-container {
+    flex: 1;
+    text-align: left;
+    min-width: 0; /* A crucial fix to prevent text overflow in flexbox */
+}
+
+/* SVG Icon Draw-in Animation */
+.icon-container svg path,
+.icon-container svg circle {
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+}
+
+.content-section.visible .icon-container svg path,
+.content-section.visible .icon-container svg circle {
+    animation: draw-in 2s 0.5s ease-out forwards; /* Added a half-second delay */
+}
+
+@keyframes draw-in {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Container to create scrollable space */
 #content-container {
     height: 500vh;
 }
 
-/* We can make the first section visible by default */
+/* The intro section is simpler and doesn't use the inner-content layout */
 #intro {
-    opacity: 1;
-    height: 100vh; /* The first section can be shorter */
-}
-
-/* Add some extra space at the top of the subsequent sections */
-#login-section, #construction-section {
-    padding-top: 20vh;
+    text-align: center;
 }

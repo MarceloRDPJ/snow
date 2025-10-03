@@ -10,6 +10,7 @@ class World {
             alpha: true
         });
 
+        this.clock = new THREE.Clock(); // Initialize the clock
         this.init();
     }
 
@@ -46,6 +47,9 @@ class World {
 
         // Snow Particles
         this.createSnow();
+
+        // Aurora
+        this.createAurora();
 
         // Start animation loop
         this.animate();
@@ -87,41 +91,115 @@ class World {
     }
 
     createSnow() {
-        const particleCount = 10000;
-        const particles = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
+        this.snowLayers = [];
+        const layerData = [
+            { count: 2000, size: 0.15, speed: 0.04, yRange: 100 }, // Foreground
+            { count: 5000, size: 0.1, speed: 0.02, yRange: 120 },  // Midground
+            { count: 8000, size: 0.05, speed: 0.01, yRange: 150 }   // Background
+        ];
 
-        for (let i = 0; i < particleCount * 3; i++) {
-            positions[i] = (Math.random() - 0.5) * 100;
-        }
-        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        layerData.forEach(data => {
+            const particles = new THREE.BufferGeometry();
+            const positions = new Float32Array(data.count * 3);
 
-        const particleMaterial = new THREE.PointsMaterial({
-            color: 0xffffff,
-            size: 0.1,
-            transparent: true,
-            opacity: 0.8
+            for (let i = 0; i < data.count * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * data.yRange;
+            }
+            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: data.size,
+                transparent: true,
+                opacity: 0.8,
+                depthWrite: false // Helps with transparency issues
+            });
+
+            const snowLayer = new THREE.Points(particles, particleMaterial);
+            snowLayer.userData.speed = data.speed; // Store speed for animation
+            snowLayer.userData.yRange = data.yRange;
+            this.scene.add(snowLayer);
+            this.snowLayers.push(snowLayer);
         });
-
-        this.snow = new THREE.Points(particles, particleMaterial);
-        this.scene.add(this.snow);
     }
 
+    createAurora() {
+        const vertexShader = `
+            uniform float uTime;
+            varying float vNoise;
+            void main() {
+                vec3 pos = position;
+                // A simple sine wave for a wavy effect, made more complex by combining functions
+                float wave = sin(pos.x * 0.1 + uTime * 0.3) * cos(pos.y * 0.2 + uTime * 0.2);
+                pos.z += wave * 3.0; // Make the curtain wave
+                vNoise = (sin(pos.x * 0.05 + uTime * 0.5) + 1.0) / 2.0; // Noise for color and transparency
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            varying float vNoise;
+            void main() {
+                // Mix between green and a touch of cyan based on noise
+                vec3 color = vec3(0.0, 1.0, 0.5) * vNoise;
+                // Fade out at the edges
+                float alpha = vNoise * 0.5;
+                gl_FragColor = vec4(color, alpha);
+            }
+        `;
+
+        this.auroraMaterial = new THREE.ShaderMaterial({
+            vertexShader,
+            fragmentShader,
+            uniforms: {
+                uTime: { value: 0.0 }
+            },
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        const auroraGeometry = new THREE.PlaneGeometry(100, 20, 100, 20); // More segments for smoother waves
+        const aurora = new THREE.Mesh(auroraGeometry, this.auroraMaterial);
+        aurora.position.set(0, 20, -50); // Position it high and far back
+        this.scene.add(aurora);
+    }
 
     animate() {
         requestAnimationFrame(this.animate.bind(this));
+        const elapsedTime = this.clock.getElapsedTime();
 
-        // Animate snow falling
-        if (this.snow) {
-            this.snow.rotation.y += 0.0005;
-            const positions = this.snow.geometry.attributes.position.array;
-            for (let i = 1; i < positions.length; i += 3) {
-                positions[i] -= 0.02; // Move down
-                if (positions[i] < -50) {
-                    positions[i] = 50; // Reset to top
+        // Animate multi-layered snow falling with drift
+        this.snowLayers.forEach(layer => {
+            const positions = layer.geometry.attributes.position.array;
+            const speed = layer.userData.speed;
+            const range = layer.userData.yRange / 2;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                // Y-axis (falling)
+                positions[i + 1] -= speed;
+
+                // X-axis (drifting) - use sine wave for gentle sway
+                // The drift is tied to elapsed time and the particle's y-position for variety
+                positions[i] += Math.sin(elapsedTime * 0.5 + positions[i+1] * 0.3) * speed * 0.1;
+
+                // If particle is out of bounds, reset it to the top with a new random X position
+                if (positions[i + 1] < -range) {
+                    positions[i + 1] = range;
+                    positions[i] = (Math.random() - 0.5) * layer.userData.yRange;
                 }
             }
-            this.snow.geometry.attributes.position.needsUpdate = true;
+            layer.geometry.attributes.position.needsUpdate = true;
+        });
+
+        // Update aurora shader time uniform
+        if (this.auroraMaterial) {
+            this.auroraMaterial.uniforms.uTime.value = elapsedTime;
+        }
+
+        // Update the scroll-based animation
+        if (this.scrollAnimation) {
+            this.scrollAnimation.update();
         }
 
         this.renderer.render(this.scene, this.camera);

@@ -1,0 +1,8 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="4">
+    <!-- Terminal Window Outline -->
+    <rect x="10" y="20" width="80" height="60" rx="5" />
+    <!-- Prompt Line -->
+    <path d="M 25 40 L 45 40" />
+    <!-- Blinking Cursor -->
+    <path d="M 50 40 L 50 50" />
+</svg>
