@@ -196,7 +196,7 @@ form button:hover {
 .hand-r {
   background-color: var(--bear-color);
   height: 3em;
-  width: 2.8em;
+  width: 3.2em; /* Slightly wider for better coverage */
   border: 0.25em solid var(--bear-feature-color);
   border-radius: 1em;
   transition: all 0.4s ease-in-out;
@@ -215,19 +215,21 @@ form button:hover {
 }
 
 /* --- Animation States for Hands --- */
+/* Corrected values for perfect eye coverage */
 .hand-l.hiding {
-  top: 3.5em;
-  left: 9.5em;
-  transform: rotate(-150deg);
+  top: 3.8em;
+  left: 10.5em;
+  transform: rotate(-145deg);
 }
 .hand-r.hiding {
-  top: 3.5em;
-  right: 9.5em;
-  transform: rotate(150deg);
+  top: 3.8em;
+  right: 10.5em;
+  transform: rotate(145deg);
 }
+/* Corrected values for peeking */
 .hand-r.peeking {
   top: 5.5em;
-  right: 8em;
+  right: 9.5em;
   transform: rotate(135deg);
 }
 

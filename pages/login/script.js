@@ -10,16 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentState = "normal";
 
-  // State Machine Core
+  // State Machine Core: Manages the bear's state transitions
   const setState = (newState) => {
+    // Don't re-trigger the same state
+    if (currentState === newState) return;
+
     currentState = newState;
 
-    // Reset all classes and styles before applying new ones
+    // Reset all classes before applying the new state
     handL.classList.remove("hiding");
     handR.classList.remove("hiding", "peeking");
     eyeL.style.transform = "translate(0, 0)";
     eyeR.style.transform = "translate(0, 0)";
 
+    // Apply styles for the new state
     switch (newState) {
       case "watching":
         eyeL.style.transform = "translate(5px, 8px)";
@@ -30,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         handR.classList.add("hiding");
         break;
       case "peeking":
-        handL.classList.add("hiding");
-        handR.classList.add("peeking");
+        handL.classList.add("hiding"); // Left hand stays hiding
+        handR.classList.add("peeking"); // Right hand moves to peek
         break;
       case "normal":
       default:
-        // Already reset, so no extra action needed
+        // Styles are already reset, so no action needed
         break;
     }
   };
@@ -49,14 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
     setState("hiding");
   });
 
+  // When clicking away, reset to normal state
   document.addEventListener("click", (e) => {
     if (e.target !== usernameRef && e.target !== passwordRef && !e.target.closest("#toggle-password")) {
       setState("normal");
     }
   });
 
+  // Handle the peeking logic
   togglePassword.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent document click listener from firing
+    e.stopPropagation(); // Prevents the document click listener from resetting the state
 
     if (currentState === "hiding") {
       passwordRef.type = "text";
@@ -71,6 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initialize with a normal state
+  // Initialize
   setState("normal");
 });
