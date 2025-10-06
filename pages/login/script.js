@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Reset all classes before applying the new state
     handL.classList.remove("hiding");
     handR.classList.remove("hiding", "peeking");
+    eyeL.classList.remove("closing");
+    eyeR.classList.remove("closing");
     eyeL.style.transform = "translate(0, 0)";
     eyeR.style.transform = "translate(0, 0)";
 
@@ -32,10 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
       case "hiding":
         handL.classList.add("hiding");
         handR.classList.add("hiding");
+        eyeL.classList.add("closing");
+        eyeR.classList.add("closing");
         break;
       case "peeking":
         handL.classList.add("hiding"); // Left hand stays hiding
         handR.classList.add("peeking"); // Right hand moves to peek
+        eyeL.classList.add("closing"); // Left eye remains closed
         break;
       case "normal":
       default:

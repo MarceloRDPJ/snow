@@ -16,17 +16,22 @@
 }
 
 body {
-  background-color: var(--background-color);
+  background-image: url("https://images.unsplash.com/photo-1454496522488-7a8e488e8606");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden; /* Hide scrollbars from snowflakes */
 }
 
 .container {
   height: 31.25em;
   width: 31.25em;
   position: relative;
+  z-index: 2;
 }
 
 form {
@@ -168,6 +173,12 @@ form button:hover {
   left: 0.5em;
   top: 0.5em;
   transition: all 0.3s ease-in-out;
+}
+
+.eyeball-l.closing,
+.eyeball-r.closing {
+  height: 0.1em;
+  top: 0.7em;
 }
 
 .nose {
