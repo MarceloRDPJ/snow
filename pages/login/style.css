@@ -215,22 +215,21 @@ form button:hover {
 }
 
 /* --- Animation States for Hands --- */
-/* Corrected values for perfect eye coverage */
 .hand-l.hiding {
-  top: 3.8em;
-  left: 10.5em;
-  transform: rotate(-145deg);
+  top: 2.8em;
+  left: 11em;
+  transform: rotate(-150deg);
 }
 .hand-r.hiding {
-  top: 3.8em;
-  right: 10.5em;
-  transform: rotate(145deg);
+  top: 2.8em;
+  right: 11em;
+  transform: rotate(150deg);
 }
-/* Corrected values for peeking */
+/* Values for peeking */
 .hand-r.peeking {
-  top: 5.5em;
-  right: 9.5em;
-  transform: rotate(135deg);
+  top: 4em;
+  right: 10.5em;
+  transform: rotate(140deg);
 }
 
 .paw-l,
