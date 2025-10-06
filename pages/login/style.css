@@ -1,13 +1,11 @@
-/* --- Polar Bear Login --- */
-/* Using the 'Projeto Snow' color palette and aesthetic */
-
 :root {
   --background-color: #003366; /* Azul-profundo */
   --form-background: #F8F9FA;   /* Branco-neve */
   --text-color: #003366;
   --accent-color: #B0E0E6;     /* Azul-gelo */
   --bear-color: #F8F9FA;
-  --bear-feature-color: #002244; /* A slightly darker blue for contrast */
+  --bear-feature-color: #002244;
+  --placeholder-color: #a0a0a0;
 }
 
 * {
@@ -19,15 +17,16 @@
 
 body {
   background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
   height: 31.25em;
   width: 31.25em;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
+  position: relative;
 }
 
 form {
@@ -53,8 +52,16 @@ form label {
   color: var(--text-color);
 }
 
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 form input {
   font-size: 1em;
+  width: 100%;
   font-weight: 400;
   color: var(--text-color);
   padding: 0.5em;
@@ -65,6 +72,10 @@ form input {
   transition: border-color 0.3s;
 }
 
+#password {
+  padding-right: 2.5em;
+}
+
 form input:focus {
   border-color: var(--accent-color);
 }
@@ -73,22 +84,11 @@ form input:not(:last-child) {
   margin-bottom: 1.2em;
 }
 
-.password-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-#password {
-  width: 100%;
-  padding-right: 2.5em; /* Add space for the icon */
-}
-
 .eye-icon {
   position: absolute;
   right: 0.5em;
   cursor: pointer;
-  color: #a0a0a0;
+  color: var(--placeholder-color);
   transition: color 0.3s;
 }
 
@@ -113,11 +113,9 @@ form button {
 }
 
 form button:hover {
-    background-color: var(--bear-feature-color);
-    transform: translateY(-2px);
+  background-color: var(--bear-feature-color);
+  transform: translateY(-2px);
 }
-
-/* --- Polar Bear Styling --- */
 
 .polar-bear-face {
   height: 7.5em;
@@ -130,6 +128,7 @@ form button:hover {
   margin: auto;
   left: 0;
   right: 0;
+  z-index: 10;
 }
 
 .ear-l,
@@ -143,13 +142,8 @@ form button:hover {
   position: absolute;
 }
 
-.ear-l {
-  left: 10em;
-}
-
-.ear-r {
-  right: 10em;
-}
+.ear-l { left: 10em; }
+.ear-r { right: 10em; }
 
 .eye-l,
 .eye-r {
@@ -161,13 +155,8 @@ form button:hover {
   top: 2.8em;
 }
 
-.eye-l {
-  left: 1.5em;
-}
-
-.eye-r {
-  right: 1.5em;
-}
+.eye-l { left: 1.5em; }
+.eye-r { right: 1.5em; }
 
 .eyeball-l,
 .eyeball-r {
@@ -178,7 +167,7 @@ form button:hover {
   position: absolute;
   left: 0.5em;
   top: 0.5em;
-  transition: 1s all ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .nose {
@@ -209,38 +198,34 @@ form button:hover {
   height: 3em;
   width: 2.8em;
   border: 0.25em solid var(--bear-feature-color);
-  border-radius: 1em 1em 2em 2em;
-  transition: all 0.5s ease-in-out; /* Faster transition */
+  border-radius: 1em;
+  transition: all 0.4s ease-in-out;
   position: absolute;
   top: 8.4em;
+  z-index: 11;
 }
 
 .hand-l {
   left: 7.5em;
+  transform-origin: bottom right;
 }
-
 .hand-r {
   right: 7.5em;
+  transform-origin: bottom left;
 }
 
-/* State: Hiding */
+/* --- Animation States for Hands --- */
 .hand-l.hiding {
-  height: 6em;
   top: 3.5em;
   left: 9.5em;
   transform: rotate(-150deg);
 }
-
 .hand-r.hiding {
-  height: 6em;
   top: 3.5em;
   right: 9.5em;
   transform: rotate(150deg);
 }
-
-/* State: Peeking */
 .hand-r.peeking {
-  height: 5em;
   top: 5.5em;
   right: 8em;
   transform: rotate(135deg);
@@ -257,17 +242,9 @@ form button:hover {
   top: 26.5em;
 }
 
-.paw-l {
-  left: 9.8em;
-}
+.paw-l { left: 9.8em; }
+.paw-r { right: 9.8em; }
 
-.paw-r {
-  right: 9.8em;
-}
-
-/* Responsive adjustments */
 @media screen and (max-width: 500px) {
-  .container {
-    font-size: 14px;
-  }
+  .container { font-size: 14px; }
 }

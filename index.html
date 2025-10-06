@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snow - Welcome</title>
     <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/parallax.css">
     <link rel="stylesheet" href="assets/css/lobby.css">
 </head>
 <body>
-    <!-- O canvas para a cena 3D será inserido aqui pelo JavaScript -->
-    <div id="three-container"></div>
+    <div id="parallax-container">
+        <div class="parallax-layer" id="parallax-sky"></div>
+        <div class="parallax-layer" id="parallax-stars"></div>
+        <div class="parallax-layer" id="parallax-mountains-far"></div>
+        <div class="parallax-layer" id="parallax-mountains-mid"></div>
+        <div class="parallax-layer" id="parallax-mountains-close"></div>
+        <div class="parallax-layer" id="parallax-ground"></div>
+    </div>
 
     <!-- Seções de conteúdo que serão reveladas com o scroll -->
     <div id="content-container">
@@ -47,7 +54,6 @@
         </section>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="assets/js/main.js" type="module"></script>
+    <script src="assets/js/lobby.js"></script>
 </body>
 </html>

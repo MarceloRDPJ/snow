@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // DOM Elements
   const usernameRef = document.getElementById("username");
   const passwordRef = document.getElementById("password");
   const togglePassword = document.getElementById("toggle-password");
@@ -7,61 +8,69 @@ document.addEventListener("DOMContentLoaded", () => {
   const handL = document.querySelector(".hand-l");
   const handR = document.querySelector(".hand-r");
 
-  const setEyePosition = (left, top) => {
-    eyeL.style.left = left;
-    eyeL.style.top = top;
-    eyeR.style.left = left;
-    eyeR.style.top = top;
-  };
+  let currentState = "normal";
 
-  const setHandsToNormal = () => {
+  // State Machine Core
+  const setState = (newState) => {
+    currentState = newState;
+
+    // Reset all classes and styles before applying new ones
     handL.classList.remove("hiding");
     handR.classList.remove("hiding", "peeking");
+    eyeL.style.transform = "translate(0, 0)";
+    eyeR.style.transform = "translate(0, 0)";
+
+    switch (newState) {
+      case "watching":
+        eyeL.style.transform = "translate(5px, 8px)";
+        eyeR.style.transform = "translate(5px, 8px)";
+        break;
+      case "hiding":
+        handL.classList.add("hiding");
+        handR.classList.add("hiding");
+        break;
+      case "peeking":
+        handL.classList.add("hiding");
+        handR.classList.add("peeking");
+        break;
+      case "normal":
+      default:
+        // Already reset, so no extra action needed
+        break;
+    }
   };
 
-  const setHandsToHiding = () => {
-    handL.classList.add("hiding");
-    handR.classList.remove("peeking");
-    handR.classList.add("hiding");
-  };
-
-  const setHandToPeeking = () => {
-    handL.classList.add("hiding");
-    handR.classList.remove("hiding");
-    handR.classList.add("peeking");
-  };
-
+  // Event Listeners
   usernameRef.addEventListener("focus", () => {
-    setEyePosition("0.75em", "0.8em");
-    setHandsToNormal();
+    setState("watching");
   });
 
   passwordRef.addEventListener("focus", () => {
-    setEyePosition("0.5em", "0.5em");
-    setHandsToHiding();
+    setState("hiding");
   });
 
   document.addEventListener("click", (e) => {
-    if (e.target !== usernameRef && e.target !== passwordRef) {
-      setEyePosition("0.5em", "0.5em");
-      setHandsToNormal();
+    if (e.target !== usernameRef && e.target !== passwordRef && !e.target.closest("#toggle-password")) {
+      setState("normal");
     }
   });
 
   togglePassword.addEventListener("click", (e) => {
-    // FIX: Stop this click from bubbling up to the document listener
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent document click listener from firing
 
-    if (!handL.classList.contains("hiding")) return;
-
-    if (passwordRef.type === "password") {
+    if (currentState === "hiding") {
       passwordRef.type = "text";
-      setHandToPeeking();
-      togglePassword.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07L3 3"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
-    } else {
+      setState("peeking");
+      togglePassword.innerHTML = '<i data-feather="eye-off"></i>';
+      feather.replace();
+    } else if (currentState === "peeking") {
       passwordRef.type = "password";
-      setHandsToHiding();
-      togglePassword.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+      setState("hiding");
+      togglePassword.innerHTML = '<i data-feather="eye"></i>';
+      feather.replace();
     }
   });
+
+  // Initialize with a normal state
+  setState("normal");
 });

@@ -1,6 +1,6 @@
 /* ===== LOBBY.CSS - REFACTORED FOR STABILITY ===== */
 
-/* The main section container is only responsible for being a fixed block in the center. */
+/* The main section container with glassmorphism effect */
 .content-section {
     position: fixed;
     top: 50%;
@@ -12,12 +12,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 2.5rem;
+
+    /* Glassmorphism */
+    background-color: rgba(248, 249, 250, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 
     /* Controls visibility */
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.7s ease-in-out;
+    transition: opacity 0.8s ease-out; /* Smoother transition */
 }
 
 .content-section.visible {
