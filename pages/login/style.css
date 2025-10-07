@@ -1,30 +1,26 @@
 :root {
-  --background-color: #003366; /* Azul-profundo */
-  --form-background: #F8F9FA;   /* Branco-neve */
-  --text-color: #003366;
-  --accent-color: #B0E0E6;     /* Azul-gelo */
-  --bear-color: #F8F9FA;
-  --bear-feature-color: #002244;
-  --placeholder-color: #a0a0a0;
+  /* Cyberpunk Palette Integration */
+  --color-bg: #0a0a0a;
+  --text-primary: #a0f0f0; /* Cyan-tinted */
+  --accent-color: #ff00ff; /* Vibrant magenta */
+  --glow-color: rgba(255, 0, 255, 0.7);
+  --placeholder-color: #888;
 }
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 body {
-  background-image: url("https://images.unsplash.com/photo-1454496522488-7a8e488e8606");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: var(--color-bg);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  overflow: hidden; /* Hide scrollbars from snowflakes */
+  overflow: hidden;
 }
 
 .container {
@@ -37,7 +33,9 @@ body {
 form {
   width: 23.75em;
   height: 18.75em;
-  background-color: var(--form-background);
+  background-color: rgba(10, 10, 10, 0.5);
+  border: 1px solid var(--accent-color);
+  box-shadow: 0 0 25px var(--glow-color);
   position: absolute;
   transform: translate(-50%, -50%);
   top: calc(50% + 3.1em);
@@ -46,15 +44,17 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 0.8em;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 0; /* Sharp corners */
 }
 
 form label {
   display: block;
   margin-bottom: 0.5em;
   font-weight: 600;
-  color: var(--text-color);
+  color: var(--text-primary);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .password-container {
@@ -68,13 +68,13 @@ form input {
   font-size: 1em;
   width: 100%;
   font-weight: 400;
-  color: var(--text-color);
+  color: var(--text-primary);
   padding: 0.5em;
   border: none;
-  border-bottom: 2px solid #d0d0d0;
+  border-bottom: 1px solid var(--text-primary);
   outline: none;
   background-color: transparent;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 #password {
@@ -83,6 +83,7 @@ form input {
 
 form input:focus {
   border-color: var(--accent-color);
+  box-shadow: 0 0 10px var(--glow-color);
 }
 
 form input:not(:last-child) {
@@ -98,35 +99,38 @@ form input:not(:last-child) {
 }
 
 .eye-icon:hover {
-  color: var(--text-color);
+  color: var(--accent-color);
 }
 
 form button {
   font-size: 1em;
   padding: 0.8em 0;
-  border-radius: 0.5em;
-  border: none;
+  border-radius: 0;
+  border: 1px solid var(--accent-color);
   outline: none;
-  background-color: var(--background-color);
-  color: var(--form-background);
+  background-color: transparent;
+  color: var(--accent-color);
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.1em;
   margin-top: 1.5em;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  text-shadow: 0 0 5px var(--glow-color);
 }
 
 form button:hover {
-  background-color: var(--bear-feature-color);
-  transform: translateY(-2px);
+  background-color: var(--accent-color);
+  color: var(--color-bg);
+  box-shadow: 0 0 20px var(--glow-color);
 }
 
 .polar-bear-face {
   height: 7.5em;
   width: 8.4em;
-  background-color: var(--bear-color);
-  border: 0.25em solid var(--bear-feature-color);
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 15px var(--glow-color) inset, 0 0 10px var(--glow-color);
   border-radius: 7em 7em 5em 5em;
   position: absolute;
   top: 2em;
@@ -138,10 +142,11 @@ form button:hover {
 
 .ear-l,
 .ear-r {
-  background-color: var(--bear-color);
+  background-color: transparent;
   height: 3em;
   width: 3em;
-  border: 0.25em solid var(--bear-feature-color);
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 10px var(--glow-color);
   border-radius: 50%;
   top: 1em;
   position: absolute;
@@ -152,7 +157,8 @@ form button:hover {
 
 .eye-l,
 .eye-r {
-  background-color: var(--bear-feature-color);
+  background-color: var(--accent-color);
+  box-shadow: 0 0 15px var(--glow-color);
   height: 1.5em;
   width: 1.5em;
   border-radius: 50%;
@@ -167,12 +173,13 @@ form button:hover {
 .eyeball-r {
   height: 0.5em;
   width: 0.5em;
-  background-color: #ffffff;
+  background-color: var(--color-bg); /* Dark pupils */
   border-radius: 50%;
   position: absolute;
   left: 0.5em;
   top: 0.5em;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px #00ffff; /* Add a cyan glow to pupils */
 }
 
 .eyeball-l.closing,
@@ -184,7 +191,8 @@ form button:hover {
 .nose {
   height: 1em;
   width: 1.2em;
-  background-color: var(--bear-feature-color);
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
   position: absolute;
   top: 4.5em;
   margin: auto;
@@ -196,7 +204,8 @@ form button:hover {
 .mouth {
   height: 0.2em;
   width: 1.5em;
-  background-color: var(--bear-feature-color);
+  border: 1px solid var(--accent-color);
+  background-color: transparent;
   position: absolute;
   top: 5.8em;
   left: 3.45em;
@@ -205,10 +214,11 @@ form button:hover {
 
 .hand-l,
 .hand-r {
-  background-color: var(--bear-color);
+  background-color: transparent;
   height: 3em;
-  width: 3.2em; /* Slightly wider for better coverage */
-  border: 0.25em solid var(--bear-feature-color);
+  width: 3.2em;
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 10px var(--glow-color);
   border-radius: 1em;
   transition: all 0.4s ease-in-out;
   position: absolute;
@@ -245,10 +255,11 @@ form button:hover {
 
 .paw-l,
 .paw-r {
-  background-color: var(--bear-color);
+  background-color: transparent;
   height: 3.5em;
   width: 3.5em;
-  border: 0.25em solid var(--bear-feature-color);
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 10px var(--glow-color);
   border-radius: 2em 2em 1.5em 1.5em;
   position: absolute;
   top: 26.5em;
@@ -266,18 +277,17 @@ form button:hover {
   bottom: 20px;
   right: 20px;
   z-index: 100;
-  font-family: var(--font-main, "Inter", sans-serif);
-  color: var(--form-background);
-  background-color: rgba(0, 51, 102, 0.8);
-  padding: 10px 20px;
-  border-radius: 5px;
+  font-family: "Orbitron", sans-serif;
+  color: var(--accent-color);
   text-decoration: none;
-  transition: all 0.3s ease;
   border: 1px solid var(--accent-color);
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px var(--glow-color);
 }
 
 .back-link-project:hover {
-  background-color: var(--background-color);
-  color: var(--accent-color);
-  transform: translateY(-2px);
+  background-color: var(--accent-color);
+  color: var(--color-bg);
+  box-shadow: 0 0 20px var(--glow-color);
 }

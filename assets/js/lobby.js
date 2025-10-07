@@ -37,11 +37,11 @@ class SolarSystem {
         this.camera.position.z = 50;
         this.camera.lookAt(0, 0, 0);
 
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // Softer ambient light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Balanced ambient light
         this.scene.add(ambientLight);
 
-        this.createGrid(); // Replaces createStars
-        this.createCore();   // Replaces createSun
+        this.createGrid();
+        this.createCore();
         this.createPlanets();
 
         window.addEventListener('resize', () => this.onWindowResize());
@@ -55,10 +55,9 @@ class SolarSystem {
         const size = 200;
         const divisions = 20;
         const gridHelper = new THREE.GridHelper(size, divisions, '#ff00ff', '#404040');
-        gridHelper.position.y = -15; // Position it below the main scene
+        gridHelper.position.y = -15;
         this.scene.add(gridHelper);
 
-        // Add a second grid for a more complex look
         const gridHelper2 = new THREE.GridHelper(size, divisions, '#00ffff', '#404040');
         gridHelper2.position.y = -15;
         gridHelper2.rotation.y = Math.PI / 4;
@@ -88,14 +87,17 @@ class SolarSystem {
 
         planetData.forEach(data => {
             const planetGroup = new THREE.Group();
-            const geometry = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 16);
+
+            // Using a single, stable geometry for all nodes to ensure rendering
+            const geometry = new THREE.TorusKnotGeometry(2.0, 0.5, 100, 16);
             const material = new THREE.MeshStandardMaterial({
                 color: data.color,
                 emissive: data.color,
-                emissiveIntensity: 0.5,
-                metalness: 0.8,
-                roughness: 0.2
+                emissiveIntensity: 0.8,
+                metalness: 0.7,
+                roughness: 0.3
             });
+
             const planetMesh = new THREE.Mesh(geometry, material);
             planetMesh.position.x = data.orbitRadius;
             planetGroup.add(planetMesh);
@@ -158,8 +160,6 @@ class SolarSystem {
         const startTime = this.clock.getElapsedTime();
         const startPosition = this.camera.position.clone();
 
-        // Para um lookAt suave, precisamos de um objeto para o qual a câmara possa apontar.
-        // Um objeto vazio (dummy) é perfeito para isso.
         const startLookAt = new THREE.Vector3();
         this.camera.getWorldDirection(startLookAt).multiplyScalar(10).add(this.camera.position);
 
