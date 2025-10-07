@@ -1,178 +1,174 @@
-/* assets/css/lobby.css - Premium Experience Redesign */
+/* assets/css/lobby.css - Interactive Constellation */
 
 :root {
-    --card-width: 40vw;
-    --card-max-width: 500px;
-    --gap: 5vw;
-}
-
-html {
-    scroll-behavior: smooth; /* Animação suave para o scroll */
+    --transition-speed: 0.8s;
+    --transition-easing: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 body {
-    overflow-y: hidden;
-    overflow-x: scroll;
+    overflow: hidden; /* Proíbe qualquer tipo de scroll */
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: var(--font-body);
-
-    /* Ativa o scroll magnético no eixo horizontal */
-    scroll-snap-type: x mandatory;
 }
 
-/* Oculta a scrollbar visual, mantendo a funcionalidade */
-body::-webkit-scrollbar {
-    display: none;
-}
-body {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-
-.horizontal-scroll-container {
-    display: flex;
-    align-items: center; /* Centraliza os cartões verticalmente */
-    width: fit-content; /* O container terá a largura da soma dos seus filhos */
+#universe {
+    position: relative;
+    width: 100vw;
     height: 100vh;
-    padding: 0 calc(50vw - var(--card-width) / 2); /* Centraliza o primeiro e último item */
+    transition: transform var(--transition-speed) var(--transition-easing);
 }
 
-.scroll-section {
-    flex-shrink: 0;
-    width: var(--card-width);
-    max-width: var(--card-max-width);
-    margin: 0 var(--gap);
-
-    /* Define o ponto de alinhamento para o scroll magnético */
-    scroll-snap-align: center;
-    scroll-snap-stop: always; /* Garante que pare em cada item */
-
-    /* Estado inicial para a animação de scroll */
-    opacity: 0.5;
-    transform: scale(0.85);
-    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Estilo para a secção de introdução, que não é um cartão */
-#intro {
-    width: 60vw; /* Mais largo para dar espaço */
+.intro-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    transform: none; /* Remove a transformação inicial */
-    opacity: 1; /* Totalmente visível */
+    transition: opacity 0.5s ease;
 }
 
-.intro-content h1 {
+.intro-text h1 {
     font-family: var(--font-title);
-    font-size: clamp(2.5rem, 5vw, 4rem); /* Tipografia responsiva */
+    font-size: clamp(2.5rem, 5vw, 4rem);
     color: var(--primary-color);
-    margin-bottom: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
-.intro-content p {
-    font-size: clamp(1rem, 2vw, 1.2rem);
+.intro-text p {
     color: var(--accent-color);
     opacity: 0.8;
 }
 
+/* --- ESTADO ESTRELA (INICIAL) --- */
 
-/* Estado ATIVO para o cartão em foco (será adicionado via JS) */
-.scroll-section.is-active {
+.project-node {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--accent-color), 0 0 25px white;
+
+    /* Transições para todas as propriedades que vamos animar */
+    transition: transform var(--transition-speed) var(--transition-easing),
+                width var(--transition-speed) var(--transition-easing),
+                height var(--transition-speed) var(--transition-easing),
+                border-radius var(--transition-speed) var(--transition-easing);
+
+    /* Animação de pulsação e órbita */
+    animation: pulse-star 3s infinite alternate, orbit 30s linear infinite;
+}
+
+/* Esconde o cartão por defeito */
+.project-node .project-card {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.5);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Posições das estrelas */
+#node-lobby { top: 30%; left: 25%; animation-delay: -15s; }
+#node-construction { top: 60%; left: 70%; }
+
+@keyframes pulse-star {
+    from { transform: scale(1); }
+    to { transform: scale(1.3); }
+}
+
+@keyframes orbit {
+    from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+/* --- ESTADO FOCADO (QUANDO CLICADO) --- */
+
+#universe.is-focused .intro-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#universe.is-focused .project-node:not(.is-focused) {
+    /* Esconde as outras estrelas */
+    transform: scale(0);
+    opacity: 0;
+}
+
+.project-node.is-focused {
+    /* Traz o nó focado para o centro e expande-o */
+    width: 500px;
+    max-width: 90vw;
+    height: auto;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 15px; /* Raio do cartão */
+
+    /* Para a animação de órbita e pulsação */
+    animation: none;
+
+    /* A mágica do zoom acontece aqui, movendo o nó para a origem do universo transformado */
+    transform: translate(calc(-1 * var(--tx, 0px)), calc(-1 * var(--ty, 0px))) scale(var(--s, 1));
+}
+
+.project-node.is-focused .project-card {
     opacity: 1;
+    pointer-events: auto;
     transform: scale(1);
-}
-
-.project-card {
-    background-color: rgba(13, 26, 38, 0.6);
-    border: 1px solid rgba(176, 224, 230, 0.2); /* Borda mais subtil */
+    background-color: rgba(13, 26, 38, 0.8);
+    border: 1px solid rgba(176, 224, 230, 0.2);
     border-radius: 15px;
-    overflow: hidden;
     backdrop-filter: blur(12px);
-
-    /* Perspectiva para o efeito 3D no hover */
-    transform-style: preserve-3d;
-    transition: border-color 0.4s ease;
+    transition-delay: 0.3s; /* Mostra o conteúdo só depois da expansão */
 }
 
-.project-card:hover {
-    border-color: rgba(176, 224, 230, 0.8);
-}
-
+/* Estilos do cartão - reaproveitados e refinados */
 .project-svg-wrapper {
     padding: 2.5rem;
     aspect-ratio: 16 / 10;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 20, 41, 0.3); /* Fundo subtil para destacar o SVG */
 }
-
 .project-svg {
     width: 60%;
     max-height: 140px;
     filter: drop-shadow(0 0 8px var(--accent-color));
-    overflow: visible;
 }
-
 .project-svg .svg-animated-group {
     fill: none;
     stroke: var(--accent-color);
     stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    /* Animação subtil de pulsação para dar vida */
-    animation: pulse 4s ease-in-out infinite alternate;
 }
-
-@keyframes pulse {
-    from {
-        stroke-opacity: 0.7;
-        transform: scale(0.98);
-        transform-origin: center;
-    }
-    to {
-        stroke-opacity: 1;
-        transform: scale(1.02);
-        transform-origin: center;
-    }
-}
-
 .card-content {
     padding: 1.5rem 2rem;
     text-align: left;
-    border-top: 1px solid rgba(176, 224, 230, 0.2); /* Separação visual */
+    border-top: 1px solid rgba(176, 224, 230, 0.2);
 }
-
 .card-content h2 {
     font-family: var(--font-title);
-    font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--primary-color);
-    margin-bottom: 0.75rem;
 }
-
-.card-content p {
-    font-size: clamp(0.9rem, 1.5vw, 1rem);
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-    opacity: 0.8;
-}
-
 .card-link {
-    font-family: var(--font-body);
     font-weight: bold;
     color: var(--background-color);
     background-color: var(--accent-color);
     padding: 0.7rem 1.5rem;
     border-radius: 50px;
     text-decoration: none;
-    display: inline-block; /* Para que o padding funcione corretamente */
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    margin-right: 10px;
 }
-
 .card-link:hover {
     background-color: var(--primary-color);
-    transform: translateY(-2px);
+}
+.close-card {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+.close-card:hover {
+    background-color: var(--accent-color);
+    color: var(--background-color);
 }

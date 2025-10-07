@@ -8,30 +8,22 @@
     <link rel="stylesheet" href="assets/css/lobby.css">
 </head>
 <body>
-    <div class="horizontal-scroll-container">
-        <section class="scroll-section" id="intro">
-            <div class="intro-content">
-                <h1>PROJETO SNOW</h1>
-                <p>Arraste ou role para explorar</p>
-            </div>
-        </section>
+    <div id="universe">
+        <div id="universe-background"></div>
 
-        <section class="scroll-section" id="login-section">
+        <div class="intro-text">
+            <h1>PROJETO SNOW</h1>
+            <p>Toque numa estrela para explorar</p>
+        </div>
+
+        <!-- Nó do Lobby Interativo -->
+        <div class="project-node" id="node-lobby">
             <div class="project-card">
                 <div class="project-svg-wrapper">
                     <svg class="project-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
                         <g class="svg-animated-group">
-                            <circle cx="50" cy="50" r="30" stroke-width="1" />
-                            <circle cx="50" cy="50" r="15" stroke-width="1" />
+                            <circle cx="50" cy="50" r="30" stroke-width="1.5" />
+                            <circle cx="50" cy="50" r="15" stroke-width="1.5" />
                             <line x1="50" y1="20" x2="50" y2="35" />
                             <line x1="50" y1="80" x2="50" y2="65" />
                             <line x1="20" y1="50" x2="35" y2="50" />
@@ -42,12 +34,13 @@
                 <div class="card-content">
                     <h2>Lobby Interativo</h2>
                     <p>Uma experiência de navegação reimaginada.</p>
-                    <a href="pages/login/index.html" class="card-link">Ver Projeto</a>
+                    <a href="#" class="card-link close-card">Fechar</a>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="scroll-section" id="construction-section">
+        <!-- Nó da Página em Construção -->
+        <div class="project-node" id="node-construction">
             <div class="project-card">
                 <div class="project-svg-wrapper">
                      <svg class="project-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -62,10 +55,11 @@
                 <div class="card-content">
                     <h2>Página em Construção</h2>
                     <p>Monitorize o progresso de novas funcionalidades.</p>
-                    <a href="pages/construction/index.html" class="card-link">Ver Página</a>
+                    <a href="pages/construction/index.html" class="card-link" target="_blank">Ver Página</a>
+                    <a href="#" class="card-link close-card">Fechar</a>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 
     <script src="assets/js/snow.js"></script>
