@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Cyberpunk Project</title>
-    <link rel="stylesheet" href="../../assets/css/theme.css">
-    <link rel="stylesheet" href="../../assets/css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Animado com Urso Polar</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="snow.css" />
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <h1>Login</h1>
-            <form>
-                <div class="input-group">
-                    <input type="text" required>
-                    <label>Username</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" required>
-                    <label>Password</label>
-                </div>
-                <button type="submit" class="login-button">Enter</button>
-            </form>
-            <a href="../../index.html" class="back-link">Voltar ao Lobby</a>
+    <div class="container">
+        <!-- Polar Bear Face -->
+        <div class="polar-bear-face">
+            <div class="ear-l"></div>
+            <div class="ear-r"></div>
+            <div class="eye-l">
+                <div class="eyeball-l"></div>
+            </div>
+            <div class="eye-r">
+                <div class="eyeball-r"></div>
+            </div>
+            <div class="nose"></div>
+            <div class="mouth"></div>
         </div>
-        <div class="panda-container">
-            <!-- Panda illustration will be added here -->
-        </div>
+        <!-- Hands -->
+        <div class="hand-l"></div>
+        <div class="hand-r"></div>
+        <!-- Paws -->
+        <div class="paw-l"></div>
+        <div class="paw-r"></div>
+
+        <!-- Login Form -->
+        <form>
+            <label for="username">Usuário</label>
+            <input type="text" id="username" placeholder="Digite seu usuário" />
+
+            <label for="password">Senha</label>
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Digite sua senha" />
+                <span class="eye-icon" id="toggle-password">
+                    <i data-feather="eye"></i>
+                </span>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
     </div>
+    <a href="../../index.html" class="back-link-project">Voltar ao Lobby</a>
+
+    <!-- Snow Effect & Bear Logic -->
+    <script src="snow.js"></script>
+    <script src="script.js"></script>
+    <script>
+      feather.replace();
+    </script>
 </body>
 </html>
