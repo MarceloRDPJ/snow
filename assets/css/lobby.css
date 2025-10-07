@@ -1,78 +1,106 @@
-/* ===== LOBBY.CSS - REFACTORED FOR STABILITY ===== */
+/* Estilização do Scroll e Layout Horizontal */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-y: hidden; /* Esconde o scroll vertical */
+    overflow-x: scroll; /* Adiciona o scroll horizontal */
+    -webkit-overflow-scrolling: touch; /* Scroll suave em mobile */
+}
 
-/* The main section container is only responsible for being a fixed block in the center. */
-.content-section {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 800px;
+.horizontal-scroll-container {
+    display: flex;
+    width: 300vw; /* 100vw por seção */
+    height: 100vh;
+}
 
+.scroll-section {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-
-    /* Controls visibility */
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.7s ease-in-out;
+    flex-shrink: 0;
+    padding: 0 5vw;
 }
 
-.content-section.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* This new inner container handles the layout of its children (icon and text) */
-.inner-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem; /* Space between icon and text */
-    width: 100%;
-}
-
-.icon-container {
-    flex: 0 0 80px; /* Base width for the icon */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--accent-color);
-}
-
-.text-container {
-    flex: 1;
-    text-align: left;
-    min-width: 0; /* A crucial fix to prevent text overflow in flexbox */
-}
-
-/* SVG Icon Draw-in Animation */
-.icon-container svg path,
-.icon-container svg circle {
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
-}
-
-.content-section.visible .icon-container svg path,
-.content-section.visible .icon-container svg circle {
-    animation: draw-in 2s 0.5s ease-out forwards; /* Added a half-second delay */
-}
-
-@keyframes draw-in {
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-/* Container to create scrollable space */
-#content-container {
-    height: 500vh;
-}
-
-/* The intro section is simpler and doesn't use the inner-content layout */
+/* Estilização da Seção de Introdução */
 #intro {
     text-align: center;
+}
+
+.intro-content h1 {
+    font-family: var(--font-title);
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.intro-content p {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+/* Estilização dos Cartões de Projeto */
+.project-card {
+    background-color: rgba(13, 26, 38, 0.5); /* Fundo escuro semi-transparente */
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 2rem 3rem;
+    max-width: 500px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-content h2 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.card-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.card-link {
+    font-family: var(--font-body);
+    font-weight: bold;
+    color: var(--background-color);
+    background-color: var(--accent-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.card-link:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
 }
