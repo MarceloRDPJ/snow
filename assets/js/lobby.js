@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.horizontal-scroll-container');
+    // Para garantir compatibilidade entre navegadores, usamos document.scrollingElement,
+    // que retorna o elemento que de fato rola (seja <body> ou <html>).
+    const scrollContainer = document.scrollingElement || document.documentElement;
 
-    if (container) {
-        container.addEventListener('wheel', (event) => {
-            // Previne o comportamento padrão de rolagem (vertical)
-            event.preventDefault();
-
-            // Adiciona o deltaY (rolagem vertical do mouse) ao scrollLeft (rolagem horizontal do container)
-            // Isso efetivamente converte a rolagem vertical em horizontal
-            container.scrollLeft += event.deltaY;
-        }, { passive: false }); // 'passive: false' é necessário para que o preventDefault funcione
-    }
+    window.addEventListener('wheel', (event) => {
+        // Previne o scroll vertical padrão para que possamos controlá-lo.
+        event.preventDefault();
+        // Adiciona o movimento da roda do rato (deltaY) à posição de scroll horizontal.
+        scrollContainer.scrollLeft += event.deltaY;
+    }, { passive: false });
 });

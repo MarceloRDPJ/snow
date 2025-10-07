@@ -47,11 +47,24 @@ body {
     background-color: rgba(13, 26, 38, 0.5); /* Fundo escuro semi-transparente */
     border: 1px solid var(--primary-color);
     border-radius: 15px;
-    padding: 2rem 3rem;
+    padding: 0; /* Removido para a imagem preencher */
     max-width: 500px;
     text-align: center;
     backdrop-filter: blur(10px); /* Efeito de vidro fosco */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Garante que a imagem não vaze do border-radius */
+    display: flex;
+    flex-direction: column;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.card-content {
+    padding: 2rem 3rem;
 }
 
 .project-card:hover {
