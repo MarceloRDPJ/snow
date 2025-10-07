@@ -8,61 +8,30 @@
     <link rel="stylesheet" href="assets/css/lobby.css">
 </head>
 <body>
-    <div id="universe">
-        <div id="universe-background"></div>
-
-        <div class="intro-text">
-            <h1>PROJETO SNOW</h1>
-            <p>Toque numa estrela para explorar</p>
+    <canvas id="three-canvas"></canvas>
+    <div class="ui-container">
+        <div class="preview-card" id="preview-template">
+            <h3></h3>
         </div>
 
-        <!-- Nó do Lobby Interativo -->
-        <div class="project-node" id="node-lobby">
-            <div class="project-card">
-                <div class="project-svg-wrapper">
-                    <svg class="project-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <g class="svg-animated-group">
-                            <circle cx="50" cy="50" r="30" stroke-width="1.5" />
-                            <circle cx="50" cy="50" r="15" stroke-width="1.5" />
-                            <line x1="50" y1="20" x2="50" y2="35" />
-                            <line x1="50" y1="80" x2="50" y2="65" />
-                            <line x1="20" y1="50" x2="35" y2="50" />
-                            <line x1="80" y1="50" x2="65" y2="50" />
-                        </g>
-                    </svg>
-                </div>
-                <div class="card-content">
-                    <h2>Lobby Interativo</h2>
-                    <p>Uma experiência de navegação reimaginada.</p>
-                    <a href="#" class="card-link close-card">Fechar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nó da Página em Construção -->
-        <div class="project-node" id="node-construction">
-            <div class="project-card">
-                <div class="project-svg-wrapper">
-                     <svg class="project-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <g class="svg-animated-group">
-                            <path d="M 100,20 L 170,60 L 170,140 L 100,180 L 30,140 L 30,60 Z" />
-                            <path d="M 50,70 L 100,45 L 150,70" />
-                            <path d="M 50,130 L 100,155 L 150,130" />
-                            <path d="M 100,45 L 100,155" />
-                        </g>
-                    </svg>
-                </div>
-                <div class="card-content">
-                    <h2>Página em Construção</h2>
-                    <p>Monitorize o progresso de novas funcionalidades.</p>
-                    <a href="pages/construction/index.html" class="card-link" target="_blank">Ver Página</a>
-                    <a href="#" class="card-link close-card">Fechar</a>
-                </div>
+        <div class="detail-card" id="detail-template">
+            <div class="detail-card-content">
+                <h2></h2>
+                <p></p>
+                <a href="#" class="card-link" target="_blank">Ver Projeto</a>
+                <button class="card-link close-card">Fechar</button>
             </div>
         </div>
     </div>
 
-    <script src="assets/js/snow.js"></script>
-    <script src="assets/js/lobby.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="assets/js/lobby.js"></script>
 </body>
 </html>
