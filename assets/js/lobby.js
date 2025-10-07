@@ -1,57 +1,59 @@
-// assets/js/lobby.js - Premium Experience Logic
+// assets/js/lobby.js - Interactive Constellation Orchestrator
 
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.scroll-section');
-    const cards = document.querySelectorAll('.project-card');
+    const universe = document.getElementById('universe');
+    const nodes = document.querySelectorAll('.project-node');
 
-    // --- 1. Animação de Foco com Intersection Observer ---
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                // Adiciona/remove a classe .is-active com base na visibilidade
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-active');
-                } else {
-                    entry.target.classList.remove('is-active');
-                }
-            });
-        },
-        {
-            root: null, // Observa a viewport
-            rootMargin: '0px',
-            threshold: 0.6, // Considera "ativo" quando 60% do item está visível
+    nodes.forEach(node => {
+        const closeButton = node.querySelector('.close-card');
+        const externalLink = node.querySelector('a[target="_blank"]');
+
+        const focusNode = (event) => {
+            // Impede que o clique se propague para o universo (o que causaria um desfoco imediato)
+            event.stopPropagation();
+
+            // Não faz nada se outro nó já estiver focado
+            if (universe.classList.contains('is-focused')) {
+                return;
+            }
+
+            // Adiciona as classes que acionam as animações CSS
+            universe.classList.add('is-focused');
+            node.classList.add('is-focused');
+        };
+
+        const unfocusNode = (event) => {
+            // Impede que o clique no botão se propague para o nó pai (o que causaria um foco)
+            if (event) {
+                event.stopPropagation();
+            }
+
+            universe.classList.remove('is-focused');
+            node.classList.remove('is-focused');
+        };
+
+        // Adiciona o listener para focar no nó
+        node.addEventListener('click', focusNode);
+
+        // Adiciona o listener para desfocar através do botão "Fechar"
+        if (closeButton) {
+            closeButton.addEventListener('click', unfocusNode);
         }
-    );
 
-    // Observa cada secção
-    sections.forEach((section) => {
-        observer.observe(section);
+        // Se houver um link externo, impede que o clique nele acione o foco
+        if (externalLink) {
+            externalLink.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
+        }
     });
 
-
-    // --- 2. Micro-interação de Inclinação 3D nos Cartões ---
-    cards.forEach((card) => {
-        const rotationIntensity = 8; // Graus de inclinação
-
-        card.addEventListener('mousemove', (event) => {
-            const { clientX, clientY } = event;
-            const { left, top, width, height } = card.getBoundingClientRect();
-
-            // Calcula a posição do rato dentro do cartão (-0.5 a 0.5)
-            const mouseX = (clientX - left) / width - 0.5;
-            const mouseY = (clientY - top) / height - 0.5;
-
-            // Calcula os ângulos de rotação
-            const rotateX = -mouseY * rotationIntensity;
-            const rotateY = mouseX * rotationIntensity;
-
-            // Aplica a transformação 3D
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        // Reseta a transformação quando o rato sai do cartão
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        });
+    // Adiciona um listener ao universo para desfocar quando se clica no "fundo"
+    universe.addEventListener('click', () => {
+        const focusedNode = document.querySelector('.project-node.is-focused');
+        if (focusedNode) {
+            universe.classList.remove('is-focused');
+            focusedNode.classList.remove('is-focused');
+        }
     });
 });
