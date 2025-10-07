@@ -1,13 +1,14 @@
-/* ===== THEME.CSS - SCROLLING JOURNEY REDESIGN ===== */
+/* ===== THEME.CSS - CYBERPUNK REDESIGN ===== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 :root {
-  --font-main: "Montserrat", sans-serif;
-  --color-bg: #0d1a26; /* Deep, dark blue, like a polar night */
+  --font-main: "Orbitron", sans-serif;
+  --color-bg: #0a0a0a; /* Near black for high contrast */
   --text-primary: #ffffff;
-  --text-secondary: #cdd5dc;
-  --accent-color: #38a1f2; /* Icy blue */
+  --text-secondary: #a0f0f0; /* Cyan-tinted light grey */
+  --accent-color: #ff00ff; /* Vibrant magenta */
+  --glow-color: rgba(255, 0, 255, 0.7);
 }
 
 * {
@@ -46,7 +47,7 @@ h1, h2 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Legibility shadow */
+  text-shadow: 0 0 5px var(--text-primary), 0 0 15px var(--glow-color);
 }
 
 h1 {
@@ -73,13 +74,15 @@ a {
     text-decoration: none;
     border: 1px solid var(--accent-color);
     padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    transition: background-color 0.3s, color 0.3s;
+    border-radius: 0; /* Sharp corners */
+    transition: background-color 0.3s, color 0.3s, text-shadow 0.3s;
     margin-top: 1rem;
     font-weight: 700;
+    text-shadow: 0 0 5px var(--glow-color);
 }
 
 a:hover {
     background-color: var(--accent-color);
     color: var(--color-bg);
+    text-shadow: 0 0 10px var(--color-bg);
 }

@@ -49,3 +49,28 @@ body {
     margin: 0;
     font-size: 1.2rem;
 }
+
+.login-link-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.login-link {
+    font-family: var(--font-main);
+    color: var(--accent-color);
+    text-decoration: none;
+    border: 1px solid var(--accent-color);
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--glow-color);
+    background: rgba(13, 26, 38, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+.login-link:hover {
+    background-color: var(--accent-color);
+    color: var(--color-bg);
+    box-shadow: 0 0 20px var(--glow-color);
+}

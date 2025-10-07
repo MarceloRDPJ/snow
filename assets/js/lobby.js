@@ -33,14 +33,15 @@ class SolarSystem {
     init() {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.scene.background = new THREE.Color('#0a0a0a');
         this.camera.position.z = 50;
         this.camera.lookAt(0, 0, 0);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // Softer ambient light
         this.scene.add(ambientLight);
 
-        this.createStars();
-        this.createSun();
+        this.createGrid(); // Replaces createStars
+        this.createCore();   // Replaces createSun
         this.createPlanets();
 
         window.addEventListener('resize', () => this.onWindowResize());
@@ -50,42 +51,52 @@ class SolarSystem {
         this.animate();
     }
 
-    createStars() {
-        const starGeometry = new THREE.BufferGeometry();
-        const starCount = 5000;
-        const positions = new Float32Array(starCount * 3);
+    createGrid() {
+        const size = 200;
+        const divisions = 20;
+        const gridHelper = new THREE.GridHelper(size, divisions, '#ff00ff', '#404040');
+        gridHelper.position.y = -15; // Position it below the main scene
+        this.scene.add(gridHelper);
 
-        for (let i = 0; i < starCount; i++) {
-            positions[i * 3 + 0] = (Math.random() - 0.5) * 2000;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
-        }
-
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.7, transparent: true, blending: THREE.AdditiveBlending });
-        this.scene.add(new THREE.Points(starGeometry, starMaterial));
+        // Add a second grid for a more complex look
+        const gridHelper2 = new THREE.GridHelper(size, divisions, '#00ffff', '#404040');
+        gridHelper2.position.y = -15;
+        gridHelper2.rotation.y = Math.PI / 4;
+        this.scene.add(gridHelper2);
     }
 
-    createSun() {
-        const sunGeometry = new THREE.SphereGeometry(7, 32, 32);
-        const sunMaterial = new THREE.MeshStandardMaterial({ emissive: '#FFD700', emissiveIntensity: 2 });
-        this.sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        const pointLight = new THREE.PointLight(0xffffff, 3, 300);
-        this.sun.add(pointLight);
-        this.scene.add(this.sun);
+    createCore() {
+        const coreGeometry = new THREE.IcosahedronGeometry(7, 1);
+        const coreMaterial = new THREE.MeshStandardMaterial({
+            emissive: '#ff00ff',
+            emissiveIntensity: 2,
+            wireframe: true,
+            color: '#ff00ff'
+        });
+        this.core = new THREE.Mesh(coreGeometry, coreMaterial);
+        const pointLight = new THREE.PointLight('#ff00ff', 5, 200);
+        this.core.add(pointLight);
+        this.scene.add(this.core);
     }
 
     createPlanets() {
         this.planets = [];
         const planetData = [
-            { id: 'lobby', name: 'Lobby Interativo', orbitRadius: 20, speed: 0.5, color: '#B0E0E6', url: '#' },
-            { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#FF7E5F', url: 'pages/construction/index.html' }
+            { id: 'login', name: 'Login Project', orbitRadius: 20, speed: 0.5, color: '#00ffff', url: 'pages/login/index.html' },
+            { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#ff00ff', url: 'pages/construction/index.html' }
         ];
 
         planetData.forEach(data => {
             const planetGroup = new THREE.Group();
-            const planetMaterial = new THREE.MeshStandardMaterial({ color: data.color, emissive: data.color, emissiveIntensity: 0.3, roughness: 0.5, metalness: 0.5 });
-            const planetMesh = new THREE.Mesh(new THREE.SphereGeometry(2, 32, 32), planetMaterial);
+            const geometry = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 16);
+            const material = new THREE.MeshStandardMaterial({
+                color: data.color,
+                emissive: data.color,
+                emissiveIntensity: 0.5,
+                metalness: 0.8,
+                roughness: 0.2
+            });
+            const planetMesh = new THREE.Mesh(geometry, material);
             planetMesh.position.x = data.orbitRadius;
             planetGroup.add(planetMesh);
             this.scene.add(planetGroup);
@@ -237,8 +248,11 @@ class SolarSystem {
         if (!this.isPaused) {
             const elapsedTime = this.clock.getElapsedTime();
 
-            this.sun.rotation.y += 0.001;
-            this.sun.scale.setScalar(Math.sin(elapsedTime * 0.5) * 0.05 + 1);
+            if (this.core) {
+                this.core.rotation.y += 0.001;
+                this.core.rotation.x += 0.0005;
+                this.core.scale.setScalar(Math.sin(elapsedTime * 0.5) * 0.05 + 1);
+            }
 
             this.planets.forEach(planet => {
                 if (this.focusedPlanet !== planet) {
