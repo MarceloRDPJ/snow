@@ -260,3 +260,24 @@ form button:hover {
 @media screen and (max-width: 500px) {
   .container { font-size: 14px; }
 }
+
+.back-link-project {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  font-family: var(--font-main, "Inter", sans-serif);
+  color: var(--form-background);
+  background-color: rgba(0, 51, 102, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--accent-color);
+}
+
+.back-link-project:hover {
+  background-color: var(--background-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
