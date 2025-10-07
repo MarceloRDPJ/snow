@@ -128,9 +128,8 @@ form button:hover {
 .polar-bear-face {
   height: 7.5em;
   width: 8.4em;
-  background-color: transparent;
-  border: 2px solid var(--accent-color);
-  box-shadow: 0 0 15px var(--glow-color) inset, 0 0 10px var(--glow-color);
+  background-color: #ffffff;
+  border: 3px solid #1c1c1c;
   border-radius: 7em 7em 5em 5em;
   position: absolute;
   top: 2em;
@@ -140,59 +139,73 @@ form button:hover {
   z-index: 10;
 }
 
-.ear-l,
-.ear-r {
-  background-color: transparent;
-  height: 3em;
-  width: 3em;
-  border: 2px solid var(--accent-color);
-  box-shadow: 0 0 10px var(--glow-color);
-  border-radius: 50%;
-  top: 1em;
-  position: absolute;
+.mohawk {
+    position: absolute;
+    top: -2.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2.5em;
+    height: 3em;
+    background-color: var(--accent-color);
+    clip-path: polygon(0% 100%, 20% 40%, 30% 60%, 40% 20%, 50% 0%, 60% 20%, 70% 60%, 80% 40%, 100% 100%);
+    z-index: 5;
 }
 
-.ear-l { left: 10em; }
-.ear-r { right: 10em; }
+.ear-l,
+.ear-r {
+  background-color: #1c1c1c;
+  height: 2.5em;
+  width: 2.5em;
+  border: 3px solid #1c1c1c;
+  border-radius: 50%;
+  position: absolute;
+  top: -0.5em;
+}
+
+.ear-l { left: 0.5em; }
+.ear-r { right: 0.5em; }
 
 .eye-l,
 .eye-r {
-  background-color: var(--accent-color);
-  box-shadow: 0 0 15px var(--glow-color);
-  height: 1.5em;
-  width: 1.5em;
-  border-radius: 50%;
+  background-color: #1c1c1c;
+  height: 2.2em;
+  width: 1.8em;
+  border-radius: 40%;
   position: absolute;
-  top: 2.8em;
+  top: 2.5em;
 }
 
-.eye-l { left: 1.5em; }
-.eye-r { right: 1.5em; }
+.eye-l {
+  left: 1.2em;
+  transform: rotate(20deg);
+}
+.eye-r {
+  right: 1.2em;
+  transform: rotate(-20deg);
+}
 
 .eyeball-l,
 .eyeball-r {
-  height: 0.5em;
-  width: 0.5em;
-  background-color: var(--color-bg); /* Dark pupils */
+  height: 0.6em;
+  width: 0.6em;
+  background-color: #ffffff;
   border-radius: 50%;
   position: absolute;
-  left: 0.5em;
-  top: 0.5em;
+  left: 0.6em;
+  top: 0.8em;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 10px #00ffff; /* Add a cyan glow to pupils */
 }
 
 .eyeball-l.closing,
 .eyeball-r.closing {
   height: 0.1em;
-  top: 0.7em;
+  top: 1em;
 }
 
 .nose {
   height: 1em;
   width: 1.2em;
-  background-color: transparent;
-  border: 2px solid var(--accent-color);
+  background-color: #1c1c1c;
   position: absolute;
   top: 4.5em;
   margin: auto;
@@ -204,8 +217,7 @@ form button:hover {
 .mouth {
   height: 0.2em;
   width: 1.5em;
-  border: 1px solid var(--accent-color);
-  background-color: transparent;
+  background-color: #1c1c1c;
   position: absolute;
   top: 5.8em;
   left: 3.45em;
@@ -214,11 +226,10 @@ form button:hover {
 
 .hand-l,
 .hand-r {
-  background-color: transparent;
+  background-color: var(--accent-color);
   height: 3em;
   width: 3.2em;
-  border: 2px solid var(--accent-color);
-  box-shadow: 0 0 10px var(--glow-color);
+  border: 3px solid #1c1c1c;
   border-radius: 1em;
   transition: all 0.4s ease-in-out;
   position: absolute;
