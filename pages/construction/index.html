@@ -5,24 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snow | Em Construção</title>
     <link rel="stylesheet" href="../../assets/css/theme.css">
-    <link rel="stylesheet" href="../../assets/css/construction.css">
+    <link rel="stylesheet" href="construction.css">
 </head>
 <body>
-    <div id="three-container"></div>
-
-    <div id="content-container">
-        <section class="content-section" id="intro-construction">
-            <h2>Página em Construção</h2>
-            <p>Nossa equipe de pinguins está trabalhando duro!</p>
-        </section>
-        <section class="content-section" id="tech-explanation">
-            <h3>O que é uma Página em Construção?</h3>
-            <p>Páginas como esta são usadas como um aviso temporário enquanto novos recursos são desenvolvidos ou a manutenção é realizada. É uma forma profissional de comunicar o progresso.</p>
-        </section>
-        <section class="content-section" id="threejs-explanation">
-            <h3>Tecnologia Utilizada</h3>
-            <p>Esta cena foi criada com Three.js, uma biblioteca JavaScript que nos permite criar e animar gráficos 3D diretamente no seu navegador. Isso torna a web mais interativa e imersiva.</p>
-        </section>
+    <div class="construction-container">
+        <div class="animation-wrapper">
+            <svg id="blueprint-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Camada base (mais escura, estática) -->
+                <g id="base-layer" opacity="0.2">
+                    <path d="M 100,20 L 170,60 L 170,140 L 100,180 L 30,140 L 30,60 Z" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
+                    <path d="M 30,60 L 100,100 L 170,60" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
+                    <path d="M 100,180 L 100,100" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
+                    <path d="M 30,140 L 100,100 L 170,140" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
+                </g>
+                <!-- Camada de animação (mais brilhante) -->
+                <g id="animated-layer" class="draw-animation">
+                    <path d="M 100,20 L 170,60 L 170,140 L 100,180 L 30,140 L 30,60 Z" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+                    <path d="M 50,70 L 100,45 L 150,70" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+                    <path d="M 50,130 L 100,155 L 150,130" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+                    <path d="M 100,45 L 100,155" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+                </g>
+            </svg>
+        </div>
+        <div class="text-content">
+            <h1>Arquitetando Novas Experiências</h1>
+            <p>A precisão leva tempo. A nossa visão está a tomar forma. Volte em breve para testemunhar a evolução.</p>
+        </div>
     </div>
 
     <a href="../../index.html" class="back-link" title="Voltar ao Início">
@@ -32,6 +40,6 @@
         </svg>
     </a>
 
-    <script src="../../assets/js/construction.js" type="module"></script>
+    <script src="construction.js"></script>
 </body>
 </html>

@@ -1,0 +1,74 @@
+/* pages/construction/construction.css */
+
+body {
+    overflow: hidden; /* Previne scroll na página estática */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.construction-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+.animation-wrapper {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 2rem;
+    transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1); /* Transição suave para a interatividade do rato */
+}
+
+#blueprint-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Animação de "desenho" para as linhas do SVG */
+.draw-animation path {
+    stroke-dasharray: 1000; /* Um valor grande o suficiente para cobrir o comprimento de qualquer linha */
+    stroke-dashoffset: 1000;
+    animation: draw-line 4s ease-in-out infinite alternate;
+}
+
+/* Adiciona um atraso escalonado para cada linha para um efeito de construção mais orgânico */
+.draw-animation path:nth-child(1) { animation-delay: 0s; }
+.draw-animation path:nth-child(2) { animation-delay: -1s; }
+.draw-animation path:nth-child(3) { animation-delay: -2s; }
+.draw-animation path:nth-child(4) { animation-delay: -3s; }
+
+@keyframes draw-line {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.text-content h1 {
+    font-family: var(--font-title);
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.text-content p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    line-height: 1.7;
+}
+
+.back-link {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+}
