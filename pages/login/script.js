@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const eyeR = document.querySelector(".eyeball-r");
   const handL = document.querySelector(".hand-l");
   const handR = document.querySelector(".hand-r");
+  const loginForm = document.querySelector("form");
 
   let currentState = "normal";
 
@@ -80,6 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
       togglePassword.innerHTML = '<i data-feather="eye"></i>';
       feather.replace();
     }
+  });
+
+  // Handle form submission for redirection
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent actual form submission
+    // Redirect back to the main lobby
+    window.location.href = "../../index.html";
   });
 
   // Initialize
