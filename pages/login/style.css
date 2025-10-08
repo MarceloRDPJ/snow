@@ -1,128 +1,268 @@
+/* Import Cyberpunk font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;800&display=swap');
+
 :root {
-  /* Cyberpunk Palette Integration */
-  --color-bg: #0a0a0a;
-  --text-primary: #a0f0f0; /* Cyan-tinted */
-  --accent-color: #ff00ff; /* Vibrant magenta */
+  --accent-color: #ff00ff; /* Magenta */
+  --secondary-accent: #00ffff; /* Cyan */
+  --background-color: #0a0a0a;
+  --text-color: #a0f0f0;
   --glow-color: rgba(255, 0, 255, 0.7);
-  --placeholder-color: #888;
+  --container-bg: rgba(20, 20, 20, 0.7);
+  --input-bg: rgba(0,0,0,0.2);
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Orbitron", sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Orbitron', sans-serif;
+    height: 100vh;
+    margin: 0;
+    color: var(--text-color);
 }
 
-.container {
-  height: 31.25em;
-  width: 31.25em;
-  position: relative;
-  z-index: 2;
+h1 {
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
+}
+
+a {
+    color: var(--secondary-accent);
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+button {
+    border-radius: 0;
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in, box-shadow 0.3s;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
 }
 
 form {
-  width: 23.75em;
-  height: 18.75em;
-  background-color: rgba(10, 10, 10, 0.5);
-  border: 1px solid var(--accent-color);
-  box-shadow: 0 0 25px var(--glow-color);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: calc(50% + 3.1em);
-  left: 50%;
-  padding: 2.5em 3.1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 0; /* Sharp corners */
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
 }
 
-form label {
-  display: block;
-  margin-bottom: 0.5em;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+input {
+    background-color: var(--input-bg);
+    border: none;
+    border-bottom: 1px solid var(--text-color);
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
 }
 
-.password-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
+input::placeholder {
+    color: var(--text-color);
+    opacity: 0.7;
 }
 
-form input {
-  font-size: 1em;
-  width: 100%;
-  font-weight: 400;
-  color: var(--text-primary);
-  padding: 0.5em;
-  border: none;
-  border-bottom: 1px solid var(--text-primary);
-  outline: none;
-  background-color: transparent;
-  transition: border-color 0.3s, box-shadow 0.3s;
+.container {
+    background-color: var(--container-bg);
+    border-radius: 0;
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 25px var(--glow-color);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
 }
 
-#password {
-  padding-right: 2.5em;
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
 }
 
-form input:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 10px var(--glow-color);
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
 }
 
-form input:not(:last-child) {
-  margin-bottom: 1.2em;
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
 }
 
-.eye-icon {
-  position: absolute;
-  right: 0.5em;
-  cursor: pointer;
-  color: var(--placeholder-color);
-  transition: color 0.3s;
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
 }
 
-.eye-icon:hover {
-  color: var(--accent-color);
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
 }
 
-form button {
-  font-size: 1em;
-  padding: 0.8em 0;
-  border-radius: 0;
-  border: 1px solid var(--accent-color);
-  outline: none;
-  background-color: transparent;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  margin-top: 1.5em;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-  text-shadow: 0 0 5px var(--glow-color);
+@keyframes show {
+    0%, 49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100% {
+        opacity: 1;
+        z-index: 5;
+    }
 }
 
-form button:hover {
-  background-color: var(--accent-color);
-  color: var(--color-bg);
-  box-shadow: 0 0 20px var(--glow-color);
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.container.right-panel-active .overlay-container{
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: var(--accent-color);
+    background: -webkit-linear-gradient(to right, var(--secondary-accent), var(--accent-color));
+    background: linear-gradient(to right, var(--secondary-accent), var(--accent-color));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+.social-container {
+    margin: 20px 0;
+}
+
+.social-container a {
+    border: 1px solid #FFFFFF;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+    color: #fff;
+    transition: box-shadow 0.3s;
+}
+
+.social-container a:hover {
+    box-shadow: 0 0 10px #fff;
+}
+
+/* --- Panda Mascot Styles --- */
+.panda-wrapper {
+    position: absolute;
+    top: -50px; /* Position it above the container */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    width: 150px;
+    height: 150px;
+    pointer-events: none; /* So it doesn't interfere with form clicks */
 }
 
 .polar-bear-face {
@@ -136,7 +276,6 @@ form button:hover {
   margin: auto;
   left: 0;
   right: 0;
-  z-index: 10;
 }
 
 .mohawk {
@@ -173,6 +312,7 @@ form button:hover {
   border-radius: 40%;
   position: absolute;
   top: 2.5em;
+  overflow: hidden;
 }
 
 .eye-l {
@@ -191,15 +331,10 @@ form button:hover {
   background-color: #ffffff;
   border-radius: 50%;
   position: absolute;
-  left: 0.6em;
-  top: 0.8em;
-  transition: all 0.3s ease-in-out;
-}
-
-.eyeball-l.closing,
-.eyeball-r.closing {
-  height: 0.1em;
-  top: 1em;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-in-out;
 }
 
 .nose {
@@ -231,74 +366,16 @@ form button:hover {
   width: 3.2em;
   border: 3px solid #1c1c1c;
   border-radius: 1em;
-  transition: all 0.4s ease-in-out;
   position: absolute;
-  top: 8.4em;
-  z-index: 11;
+  top: 6em;
+  z-index: 201; /* Above the wrapper */
+  pointer-events: all;
 }
 
 .hand-l {
-  left: 7.5em;
-  transform-origin: bottom right;
+  left: 1em;
 }
+
 .hand-r {
-  right: 7.5em;
-  transform-origin: bottom left;
-}
-
-/* --- Animation States for Hands --- */
-.hand-l.hiding {
-  top: 2.8em;
-  left: 11em;
-  transform: rotate(-150deg);
-}
-.hand-r.hiding {
-  top: 2.8em;
-  right: 11em;
-  transform: rotate(150deg);
-}
-/* Values for peeking */
-.hand-r.peeking {
-  top: 4em;
-  right: 10.5em;
-  transform: rotate(140deg);
-}
-
-.paw-l,
-.paw-r {
-  background-color: transparent;
-  height: 3.5em;
-  width: 3.5em;
-  border: 2px solid var(--accent-color);
-  box-shadow: 0 0 10px var(--glow-color);
-  border-radius: 2em 2em 1.5em 1.5em;
-  position: absolute;
-  top: 26.5em;
-}
-
-.paw-l { left: 9.8em; }
-.paw-r { right: 9.8em; }
-
-@media screen and (max-width: 500px) {
-  .container { font-size: 14px; }
-}
-
-.back-link-project {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 100;
-  font-family: "Orbitron", sans-serif;
-  color: var(--accent-color);
-  text-decoration: none;
-  border: 1px solid var(--accent-color);
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 5px var(--glow-color);
-}
-
-.back-link-project:hover {
-  background-color: var(--accent-color);
-  color: var(--color-bg);
-  box-shadow: 0 0 20px var(--glow-color);
+  right: 1em;
 }
