@@ -65,6 +65,7 @@ button {
     text-transform: uppercase;
     transition: transform 80ms ease-in, box-shadow 0.3s;
     text-shadow: 0 0 5px var(--glow-color);
+    margin-top: 10px;
 }
 
 button:active {
@@ -91,8 +92,9 @@ form {
     justify-content: center;
     flex-direction: column;
     padding: 0 50px;
-    height: 100%;
     text-align: center;
+    height: 100%;
+    width: 100%;
 }
 
 input {
@@ -128,6 +130,7 @@ input::placeholder {
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
+    background-color: var(--background-color); /* THIS IS THE FIX */
 }
 
 .sign-in-container {
@@ -138,6 +141,7 @@ input::placeholder {
 
 .container.right-panel-active .sign-in-container {
     transform: translateX(100%);
+    opacity: 0; /* Hide it when not active */
 }
 
 .sign-up-container {
