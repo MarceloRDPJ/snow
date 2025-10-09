@@ -110,24 +110,32 @@ class SolarSystem {
         this.planets = [];
         const textureLoader = new THREE.TextureLoader();
         const planetData = [
-            { id: 'login', name: 'Login Project', orbitRadius: 20, speed: 0.5, color: '#00ffff', url: 'pages/login/index.html', textureUrl: 'assets/images/projects/login.png' },
+            { id: 'login', name: 'Login Project', orbitRadius: 20, speed: 0.5, color: '#00ffff', url: 'pages/login/index.html' },
             { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#ff00ff', url: 'pages/construction/index.html', textureUrl: 'assets/images/projects/construction.png' }
         ];
 
         planetData.forEach(data => {
             const planetGroup = new THREE.Group();
-            const texture = textureLoader.load(data.textureUrl);
-
             const geometry = new THREE.SphereGeometry(3, 32, 32);
-            const material = new THREE.MeshBasicMaterial({
-                map: texture,
-            });
+            let material;
+
+            if (data.textureUrl) {
+                const texture = textureLoader.load(data.textureUrl);
+                material = new THREE.MeshBasicMaterial({ map: texture });
+            } else {
+                // Apply a cyberpunk wireframe material for planets without a texture
+                material = new THREE.MeshStandardMaterial({
+                    color: data.color,
+                    emissive: data.color,
+                    emissiveIntensity: 1.5,
+                    wireframe: true
+                });
+            }
 
             const planetMesh = new THREE.Mesh(geometry, material);
             planetMesh.position.x = data.orbitRadius;
 
             planetGroup.add(planetMesh);
-
             this.scene.add(planetGroup);
             this.planets.push({ ...data, mesh: planetMesh, pivot: planetGroup });
         });
@@ -250,10 +258,20 @@ class SolarSystem {
         if (this.currentlyHovered && !this.focusedPlanet) {
             const { x, y } = this.getScreenPosition(this.currentlyHovered.mesh);
             const previewCard = this.previewTemplate;
+            const previewImg = previewCard.querySelector('img');
+
             previewCard.style.left = `${x + 20}px`;
             previewCard.style.top = `${y - 20}px`;
             previewCard.querySelector('h3').textContent = this.currentlyHovered.name;
-            previewCard.querySelector('img').src = this.currentlyHovered.textureUrl;
+
+            // Conditionally show the image in the preview card
+            if (this.currentlyHovered.textureUrl) {
+                previewImg.src = this.currentlyHovered.textureUrl;
+                previewImg.style.display = 'block';
+            } else {
+                previewImg.style.display = 'none';
+            }
+
             previewCard.classList.add('is-visible');
         } else {
             this.previewTemplate.classList.remove('is-visible');
