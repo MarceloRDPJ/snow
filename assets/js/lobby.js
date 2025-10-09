@@ -33,7 +33,7 @@ class SolarSystem {
     init() {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        this.camera.position.z = 50;
+        this.camera.position.set(25, 15, 55); // Angled for a more panoramic view
         this.camera.lookAt(0, 0, 0);
 
         const ambientLight = new THREE.AmbientLight(0x404040, 1.5); // Increased ambient light
@@ -111,7 +111,7 @@ class SolarSystem {
         const textureLoader = new THREE.TextureLoader();
         const planetData = [
             { id: 'login', name: 'Login Project', orbitRadius: 20, speed: 0.5, color: '#00ffff', url: 'pages/login/index.html' },
-            { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#ff00ff', url: 'pages/construction/index.html' }
+            { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#ff00ff', url: 'pages/construction/index.html', textureUrl: 'assets/images/projects/construction.png' }
         ];
 
         planetData.forEach(data => {
@@ -121,7 +121,7 @@ class SolarSystem {
 
             if (data.textureUrl) {
                 const texture = textureLoader.load(data.textureUrl);
-                material = new THREE.MeshBasicMaterial({ map: texture });
+                material = new THREE.MeshStandardMaterial({ map: texture, metalness: 0.7, roughness: 0.5 });
             } else {
                 // Apply a cyberpunk wireframe material for planets without a texture
                 material = new THREE.MeshStandardMaterial({
@@ -258,10 +258,20 @@ class SolarSystem {
         if (this.currentlyHovered && !this.focusedPlanet) {
             const { x, y } = this.getScreenPosition(this.currentlyHovered.mesh);
             const previewCard = this.previewTemplate;
+            const previewImg = previewCard.querySelector('img');
 
             previewCard.style.left = `${x + 20}px`;
             previewCard.style.top = `${y - 20}px`;
             previewCard.querySelector('h3').textContent = this.currentlyHovered.name;
+
+            // Conditionally show the image in the preview card
+            if (this.currentlyHovered.textureUrl) {
+                previewImg.src = this.currentlyHovered.textureUrl;
+                previewImg.style.display = 'block';
+            } else {
+                previewImg.style.display = 'none';
+            }
+
             previewCard.classList.add('is-visible');
         } else {
             this.previewTemplate.classList.remove('is-visible');
@@ -279,13 +289,10 @@ class SolarSystem {
             }
 
             if (this.core) {
-                // Add a pulsing effect to the core's light and size
-                const pulse = Math.sin(elapsedTime * 1.5) * 0.5 + 0.5;
-                this.core.material.emissiveIntensity = 3 + pulse * 2; // Pulse intensity
-                this.core.scale.setScalar(1 + pulse * 0.05); // Pulse size
-
                 this.core.rotation.y += 0.001;
                 this.core.rotation.x += 0.0005;
+                // Restore the original subtle scale animation for a more refined look
+                this.core.scale.setScalar(Math.sin(elapsedTime * 0.5) * 0.05 + 1);
             }
 
             this.planets.forEach(planet => {
