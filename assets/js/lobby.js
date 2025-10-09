@@ -36,8 +36,12 @@ class SolarSystem {
         this.camera.position.z = 50;
         this.camera.lookAt(0, 0, 0);
 
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.6); // Softer ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040, 1.5); // Increased ambient light
         this.scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 10, 7.5);
+        this.scene.add(directionalLight);
 
         this.createStars();
         this.createGrid();
@@ -245,10 +249,12 @@ class SolarSystem {
     updateUI() {
         if (this.currentlyHovered && !this.focusedPlanet) {
             const { x, y } = this.getScreenPosition(this.currentlyHovered.mesh);
-            this.previewTemplate.style.left = `${x + 20}px`;
-            this.previewTemplate.style.top = `${y - 20}px`;
-            this.previewTemplate.querySelector('h3').textContent = this.currentlyHovered.name;
-            this.previewTemplate.classList.add('is-visible');
+            const previewCard = this.previewTemplate;
+            previewCard.style.left = `${x + 20}px`;
+            previewCard.style.top = `${y - 20}px`;
+            previewCard.querySelector('h3').textContent = this.currentlyHovered.name;
+            previewCard.querySelector('img').src = this.currentlyHovered.textureUrl;
+            previewCard.classList.add('is-visible');
         } else {
             this.previewTemplate.classList.remove('is-visible');
         }
