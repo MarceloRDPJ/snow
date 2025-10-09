@@ -8,37 +8,30 @@
     <link rel="stylesheet" href="construction.css">
 </head>
 <body>
-    <div class="construction-container">
-        <div class="animation-wrapper">
-            <svg id="blueprint-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Camada base (mais escura, estática) -->
-                <g id="base-layer" opacity="0.2">
-                    <path d="M 100,20 L 170,60 L 170,140 L 100,180 L 30,140 L 30,60 Z" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
-                    <path d="M 30,60 L 100,100 L 170,60" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
-                    <path d="M 100,180 L 100,100" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
-                    <path d="M 30,140 L 100,100 L 170,140" fill="none" stroke="var(--primary-color)" stroke-width="1"/>
-                </g>
-                <!-- Camada de animação (mais brilhante) -->
-                <g id="animated-layer" class="draw-animation">
-                    <path d="M 100,20 L 170,60 L 170,140 L 100,180 L 30,140 L 30,60 Z" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                    <path d="M 50,70 L 100,45 L 150,70" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                    <path d="M 50,130 L 100,155 L 150,130" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                    <path d="M 100,45 L 100,155" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                </g>
-            </svg>
+    <div class="vortex-container">
+        <div class="black-hole">
+            <div class="event-horizon"></div>
         </div>
-        <div class="text-content">
-            <h1>Arquitetando Novas Experiências</h1>
-            <p>A precisão leva tempo. A nossa visão está a tomar forma. Volte em breve para testemunhar a evolução.</p>
-        </div>
-    </div>
 
-    <a href="../../index.html" class="back-link" title="Voltar ao Início">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 18L5 12L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
+        <!-- Elements to be sucked into the vortex -->
+        <div class="sucked-in-element text-content">
+            <h1>Oops...</h1>
+            <p>Parece que a página foi... realocada.</p>
+        </div>
+
+        <div class="sucked-in-element fragment" id="frag1" style="--start-x: 15vw; --start-y: 10vh;"></div>
+        <div class="sucked-in-element fragment" id="frag2" style="--start-x: 80vw; --start-y: 25vh;"></div>
+        <div class="sucked-in-element fragment" id="frag3" style="--start-x: 25vw; --start-y: 85vh;"></div>
+        <div class="sucked-in-element fragment" id="frag4" style="--start-x: 85vw; --start-y: 80vh;"></div>
+
+        <a href="../../index.html" class="sucked-in-element back-link" title="Voltar ao Início">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 18L5 12L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>ESCAPAR</span>
+        </a>
+    </div>
 
     <script src="construction.js"></script>
 </body>

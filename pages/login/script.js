@@ -13,15 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Panda Animation Elements ---
     const allInputs = document.querySelectorAll('input');
-    const pandaFace = document.querySelector(".panda-face");
     const eyeballs = document.querySelectorAll(".eyeball-l, .eyeball-r");
+    const eyeL = document.querySelector(".eyeball-l");
+    const eyeR = document.querySelector(".eyeball-r");
+
+    let isInputFocused = false;
 
     // --- Core Animation Functions ---
     const moveEyes = (event) => {
-        // Don't move eyes if they are in a specific state
-        if (pandaFace.classList.contains('eyes-closed') || pandaFace.classList.contains('eyes-looking-down') || pandaFace.classList.contains('eye-peeking')) {
-            return;
-        }
+        if (isInputFocused) return;
         const { clientX, clientY } = event;
         const { innerWidth, innerHeight } = window;
         const normalizedX = (clientX / innerWidth) * 2 - 1;
@@ -34,20 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    const onFocus = (event) => {
-        // First, remove all state classes to ensure a clean slate
-        pandaFace.classList.remove('eyes-closed', 'eyes-looking-down', 'eye-peeking');
+    const closeEyes = () => {
+        eyeballs.forEach(eyeball => {
+            eyeball.style.height = '0.1em';
+            eyeball.style.top = '1em';
+        });
+    };
 
+    const openEyes = () => {
+         eyeballs.forEach(eyeball => {
+            eyeball.style.height = '0.6em';
+            eyeball.style.top = '50%';
+        });
+    };
+
+    const onFocus = (event) => {
+        isInputFocused = true;
         if (event.target.type === 'password') {
-            pandaFace.classList.add('eyes-closed');
+            closeEyes();
         } else {
-            pandaFace.classList.add('eyes-looking-down');
+            eyeballs.forEach(eyeball => {
+                eyeball.style.transform = 'translate(-50%, -50%) translate(0px, 5px)';
+            });
         }
     };
 
     const onBlur = () => {
-        pandaFace.classList.remove('eyes-closed', 'eyes-looking-down', 'eye-peeking');
-        // Reset eye position
+        isInputFocused = false;
+        openEyes();
         eyeballs.forEach((eyeball) => {
             eyeball.style.transform = `translate(-50%, -50%)`;
         });
@@ -62,21 +76,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const togglePasswordIcons = document.querySelectorAll(".toggle-password");
     togglePasswordIcons.forEach(icon => {
-        // Use mousedown to prevent the input from losing focus
-        icon.addEventListener("mousedown", (e) => {
-            e.preventDefault(); // Prevent input blur
+        icon.addEventListener("click", (e) => {
+            e.stopPropagation();
             const passwordInput = icon.previousElementSibling;
-
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
                 icon.innerHTML = '<i class="fas fa-eye-slash"></i>';
-                pandaFace.classList.remove('eyes-closed');
-                pandaFace.classList.add('eye-peeking');
+                // Peek with the right eye
+                if(eyeR) {
+                    eyeR.style.height = '0.6em';
+                    eyeR.style.top = '50%';
+                }
             } else {
                 passwordInput.type = "password";
                 icon.innerHTML = '<i class="fas fa-eye"></i>';
-                pandaFace.classList.remove('eye-peeking');
-                pandaFace.classList.add('eyes-closed');
+                // Close the right eye again
+                if(eyeR) {
+                    eyeR.style.height = '0.1em';
+                    eyeR.style.top = '1em';
+                }
             }
         });
     });

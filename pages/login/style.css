@@ -281,7 +281,7 @@ input::placeholder {
     pointer-events: none;
 }
 
-.panda-face {
+.polar-bear-face {
   height: 7.5em;
   width: 8.4em;
   background-color: #ffffff;
@@ -386,38 +386,16 @@ input::placeholder {
   top: 6em;
   z-index: 201;
   pointer-events: all;
-}
-
-.hand-l {
-  left: -2em;
   transform-origin: bottom right;
 }
 
 .hand-r {
-  right: -2em;
   transform-origin: bottom left;
 }
 
 /* --- Panda Animation States --- */
-.panda-face.eyes-looking-down .eyeball-l,
-.panda-face.eyes-looking-down .eyeball-r {
-  transform: translate(-50%, -50%) translateY(5px);
-}
-
-.panda-face.eyes-closed .eyeball-l,
-.panda-face.eyes-closed .eyeball-r {
-    height: 0.1em;
-    top: 1em;
-}
-
-.panda-face.eye-peeking .eyeball-l {
-    /* Keep left eye closed */
-    height: 0.1em;
-    top: 1em;
-}
-
-.panda-face.eye-peeking .eyeball-r {
-    /* Open right eye */
-    height: 0.6em;
-    top: 50%;
+.eyeball-l.closing,
+.eyeball-r.closing {
+  height: 0.1em;
+  top: 1em;
 }
