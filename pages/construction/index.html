@@ -8,103 +8,30 @@
     <link rel="stylesheet" href="construction.css">
 </head>
 <body>
-    <div class="crash-scene-container">
-        <!-- The "hole in the page" will be created here with CSS -->
-        <div class="hole-effect"></div>
-
-        <!-- The crashed ship SVG will be placed here -->
-        <div class="ship-container">
-            <svg id="lego-ship-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <filter id="glow-effect" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur"></feGaussianBlur>
-                        <feMerge>
-                            <feMergeNode in="coloredBlur"></feMergeNode>
-                            <feMergeNode in="SourceGraphic"></feMergeNode>
-                        </feMerge>
-                    </filter>
-                </defs>
-                <g id="ship-body" transform="translate(50, 50) rotate(-15)">
-                    <!-- Main Body -->
-                    <rect x="50" y="50" width="100" height="40" fill="#c0c0c0" stroke="#333" stroke-width="2" rx="5"></rect>
-                    <rect x="60" y="40" width="80" height="10" fill="#a0a0a0" stroke="#333" stroke-width="1.5" rx="3"></rect>
-
-                    <!-- Cockpit -->
-                    <path d="M 110 40 C 130 40, 130 20, 110 20 L 90 20 C 70 20, 70 40, 90 40 Z" fill="#00ffff" stroke="#333" stroke-width="2" filter="url(#glow-effect)"></path>
-
-                    <!-- Left Wing (Intact) -->
-                    <polygon points="50,50 20,30 20,70 50,90" fill="#c0c0c0" stroke="#333" stroke-width="2"></polygon>
-                    <rect x="15" y="25" width="10" height="50" fill="#a0a0a0" stroke="#333" stroke-width="1.5" rx="2"></rect>
-
-                    <!-- Right Wing (Broken) -->
-                    <g id="broken-wing">
-                        <path d="M150,50 l30,-20 l-5,25 l-25,-5 z" fill="#c0c0c0" stroke="#333" stroke-width="2" />
-                        <path d="M150,90 l30,20 l-5,-25 l-25,5 z" fill="#a0a0a0" stroke="#333" stroke-width="2" />
-                    </g>
-
-                    <!-- Crack on the body -->
-                    <path d="M 70 90 L 80 80 L 85 85 L 95 75" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round"></path>
-                </g>
-            </svg>
+    <div class="vortex-container">
+        <div class="black-hole">
+            <div class="event-horizon"></div>
         </div>
 
-        <!-- The pilot SVG will be placed here -->
-        <div class="pilot-container">
-            <svg id="lego-pilot-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(10, 0)">
-                    <!-- Head -->
-                    <rect x="30" y="10" width="40" height="30" fill="#fdd835" stroke="#333" stroke-width="2" rx="5"></rect>
-                    <circle cx="45" cy="25" r="4" fill="#333"></circle>
-                    <circle cx="65" cy="25" r="4" fill="#333"></circle>
-                    <path d="M 40 35 Q 50 45, 60 35" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"></path> <!-- Frown -->
-
-                    <!-- Body -->
-                    <rect x="20" y="40" width="60" height="50" fill="#d32f2f" stroke="#333" stroke-width="2" rx="5"></rect>
-
-                    <!-- Legs -->
-                    <rect x="20" y="90" width="25" height="30" fill="#1e88e5" stroke="#333" stroke-width="2" rx="3"></rect>
-                    <rect x="55" y="90" width="25" height="30" fill="#1e88e5" stroke="#333" stroke-width="2" rx="3"></rect>
-
-                    <!-- Arms (Hands on Head) -->
-                    <path d="M 20 50 C 0 40, 5 10, 30 15" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"></path>
-                    <path d="M 80 50 C 100 40, 95 10, 70 15" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"></path>
-                    <!-- Hands -->
-                    <rect x="25" y="5" width="15" height="15" fill="#fdd835" stroke="#333" stroke-width="2" rx="3" transform="rotate(-15, 32.5, 12.5)"></rect>
-                    <rect x="60" y="5" width="15" height="15" fill="#fdd835" stroke="#333" stroke-width="2" rx="3" transform="rotate(15, 67.5, 12.5)"></rect>
-                </g>
-            </svg>
-        </div>
-
-        <!-- Sparks and cables will be added here -->
-        <div class="debris-container">
-            <svg id="debris-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                <!-- Broken Cables -->
-                <path d="M 100 450 C 150 400, 200 350, 230 300" stroke="var(--text-secondary)" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <path d="M 400 50 C 350 100, 300 150, 270 200" stroke="var(--text-secondary)" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-                <!-- Sparks -->
-                <g class="sparks">
-                    <circle class="spark" cx="230" cy="300" r="3" fill="yellow" />
-                    <circle class="spark" cx="235" cy="295" r="2" fill="white" />
-                    <circle class="spark" cx="270" cy="200" r="3" fill="yellow" />
-                    <circle class="spark" cx="265" cy="205" r="2" fill="white" />
-                    <circle class="spark" cx="280" cy="210" r="2" fill="yellow" />
-                </g>
-            </svg>
-        </div>
-
-        <div class="text-content">
+        <!-- Elements to be sucked into the vortex -->
+        <div class="sucked-in-element text-content">
             <h1>Oops...</h1>
-            <p>Parece que houve um acidente aqui. Nossos operários já estão trabalhando para guinchar a nave.</p>
+            <p>Parece que a página foi... realocada.</p>
         </div>
-    </div>
 
-    <a href="../../index.html" class="back-link" title="Voltar ao Início">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 18L5 12L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
+        <div class="sucked-in-element fragment" id="frag1" style="--start-x: 15vw; --start-y: 10vh;"></div>
+        <div class="sucked-in-element fragment" id="frag2" style="--start-x: 80vw; --start-y: 25vh;"></div>
+        <div class="sucked-in-element fragment" id="frag3" style="--start-x: 25vw; --start-y: 85vh;"></div>
+        <div class="sucked-in-element fragment" id="frag4" style="--start-x: 85vw; --start-y: 80vh;"></div>
+
+        <a href="../../index.html" class="sucked-in-element back-link" title="Voltar ao Início">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 18L5 12L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>ESCAPAR</span>
+        </a>
+    </div>
 
     <script src="construction.js"></script>
 </body>

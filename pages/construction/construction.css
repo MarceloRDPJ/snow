@@ -1,184 +1,194 @@
-/* pages/construction/construction.css */
+/* pages/construction/construction.css - Black Hole Redesign */
 
 :root {
-    --hole-glow-color: rgba(255, 0, 255, 0.6); /* Magenta glow */
+    --vortex-core: #2e003e; /* Deep, dark purple */
+    --vortex-glow: #ff00ff; /* Vibrant magenta for the event horizon */
 }
 
 body {
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--color-bg); /* CORRECTED */
-    color: var(--text-primary); /* CORRECTED */
+    background-color: var(--color-bg);
+    color: var(--text-primary);
     font-family: var(--font-main);
 }
 
-.crash-scene-container {
+.vortex-container {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
 }
 
-.hole-effect {
-    position: absolute;
-    width: 70vmin;
-    height: 70vmin;
-    background: radial-gradient(circle, rgba(40, 0, 40, 0.5) 0%, rgba(20, 0, 20, 0) 70%);
+.black-hole {
+    position: relative;
+    width: 40vmin;
+    height: 40vmin;
     border-radius: 50%;
-    clip-path: polygon(
-        /* A jagged, irregular shape */
-        50% 0%, 61% 10%, 75% 8%, 85% 15%, 95% 30%, 100% 50%,
-        90% 70%, 80% 85%, 70% 95%, 50% 100%, 30% 95%, 20% 85%,
-        10% 70%, 0% 50%, 5% 30%, 15% 15%, 25% 8%, 39% 10%
-    );
-    animation: pulse-glow 3s infinite alternate ease-in-out;
+    animation: slow-rotate 20s linear infinite;
 }
 
-.hole-effect::before {
-    content: '';
-    position: absolute;
-    top: -10px; left: -10px; right: -10px; bottom: -10px;
-    border-radius: 50%;
-    box-shadow: 0 0 20px 10px var(--hole-glow-color),
-                inset 0 0 20px 10px var(--hole-glow-color);
-    filter: blur(5px);
-    z-index: -1;
-    clip-path: inherit; /* Make the glow follow the same jagged path */
-}
-
-@keyframes pulse-glow {
-    from {
-        transform: scale(0.98);
-        box-shadow: 0 0 20px 10px var(--hole-glow-color),
-                    inset 0 0 20px 10px var(--hole-glow-color);
-    }
-    to {
-        transform: scale(1.02);
-        box-shadow: 0 0 30px 15px var(--hole-glow-color),
-                    inset 0 0 30px 15px var(--hole-glow-color);
-    }
-}
-
-.ship-container {
-    position: absolute;
-    width: 300px;
-    height: 200px;
-    z-index: 5; /* Position it above the hole but below the text */
-    animation: drift-ship 10s infinite alternate ease-in-out;
-}
-
-#lego-ship-svg {
-    width: 100%;
-    height: 100%;
-}
-
-@keyframes drift-ship {
-    from {
-        transform: translate(-5px, -5px) rotate(-1deg);
-    }
-    to {
-        transform: translate(5px, 5px) rotate(1deg);
-    }
-}
-
-.pilot-container {
-    position: absolute;
-    width: 100px;
-    height: 120px;
-    bottom: 20vh;
-    right: 30vw;
-    z-index: 6;
-    animation: pilot-worry 2s infinite alternate ease-in-out;
-}
-
-#lego-pilot-svg {
-    width: 100%;
-    height: 100%;
-}
-
-@keyframes pilot-worry {
-    from {
-        transform: translateY(0px) rotate(-2deg);
-    }
-    to {
-        transform: translateY(-5px) rotate(2deg);
-    }
-}
-
-.debris-container {
+.event-horizon {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 4;
-    pointer-events: none; /* Make sure it doesn't block interactions */
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--vortex-core) 0%, rgba(0,0,0,0) 70%);
+    animation: pulse 4s ease-in-out infinite alternate;
 }
 
-#debris-svg {
-    width: 100%;
-    height: 100%;
+.event-horizon::before,
+.event-horizon::after {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--vortex-glow);
+    border-bottom-color: var(--vortex-glow);
+    opacity: 0.8;
+    filter: drop-shadow(0 0 5px var(--vortex-glow));
 }
 
-.spark {
-    animation: spark-animation 0.8s infinite;
-    opacity: 0;
+.event-horizon::before {
+    animation: rotate 5s linear infinite;
 }
 
-.spark:nth-child(2) { animation-delay: 0.2s; }
-.spark:nth-child(3) { animation-delay: 0.4s; }
-.spark:nth-child(4) { animation-delay: 0.6s; }
-.spark:nth-child(5) { animation-delay: 0.1s; }
+.event-horizon::after {
+    animation: rotate 10s linear infinite reverse;
+    border-top-color: var(--text-secondary);
+    border-bottom-color: var(--text-secondary);
+    opacity: 0.4;
+}
 
-@keyframes spark-animation {
-    0% { opacity: 0; transform: scale(0.5) translate(0, 0); }
-    50% { opacity: 1; transform: scale(1) translate(5px, -5px); }
-    100% { opacity: 0; transform: scale(0.5) translate(10px, -10px); }
+@keyframes slow-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    to {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+/* Styling for elements being sucked into the vortex */
+.sucked-in-element {
+    position: absolute;
+    transform-origin: center center; /* This is crucial for the scaling/rotating animation */
+}
+
+.fragment {
+    background-color: var(--color-bg);
+    border: 1px solid var(--text-secondary);
+    box-shadow: 0 0 10px var(--vortex-glow);
+}
+
+#frag1 {
+    width: 150px;
+    height: 100px;
+    top: 10vh;
+    left: 15vw;
+    clip-path: polygon(0% 0%, 100% 20%, 80% 100%, 20% 80%);
+}
+
+#frag2 {
+    width: 100px;
+    height: 80px;
+    top: 25vh;
+    right: 20vw;
+    clip-path: polygon(20% 0%, 100% 40%, 80% 100%, 0% 60%);
+}
+
+#frag3 {
+    width: 120px;
+    height: 150px;
+    bottom: 15vh;
+    left: 25vw;
+    clip-path: polygon(0% 20%, 80% 0%, 100% 80%, 20% 100%);
+}
+
+#frag4 {
+    width: 80px;
+    height: 120px;
+    bottom: 20vh;
+    right: 15vw;
+    clip-path: polygon(20% 0%, 100% 20%, 80% 100%, 0% 80%);
 }
 
 .text-content {
-    position: relative;
+    top: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
     z-index: 10;
-    max-width: 400px;
-}
-
-.text-content h1 {
-    font-family: var(--font-main); /* CORRECTED */
-    font-size: 3rem;
-    color: var(--accent-color); /* CORRECTED */
-    text-shadow: 0 0 10px var(--hole-glow-color);
-    margin-bottom: 1rem;
-}
-
-.text-content p {
-    font-size: 1.1rem;
-    color: var(--text-secondary); /* CORRECTED */
-    opacity: 0.8;
-    line-height: 1.6;
+    text-align: center;
+    animation: suck-in-text 8s 1s ease-in-out forwards;
 }
 
 .back-link {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-    z-index: 100;
-    color: var(--text-secondary); /* CORRECTED */
-    transition: color 0.3s, text-shadow 0.3s;
+    top: 5vh;
+    left: 5vw;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--text-secondary);
-    padding: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    animation: suck-in-backlink 12s ease-in forwards;
+}
+.back-link span {
+    margin-left: 0.5rem;
 }
 
-.back-link:hover {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-    text-shadow: 0 0 10px var(--hole-glow-color);
+/* Animations for being sucked in */
+@keyframes suck-in-text {
+    0% {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%) scale(0) rotate(720deg);
+        opacity: 0;
+    }
 }
-.back-link svg {
-    display: block;
+@keyframes suck-in-backlink {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: scale(0) rotate(360deg) translate(-20vw, 20vh); opacity: 0; }
+}
+
+#frag1 { animation: suck-in-frag 10s 0.5s ease-in forwards; }
+#frag2 { animation: suck-in-frag 12s 0.2s ease-in forwards; }
+#frag3 { animation: suck-in-frag 9s 0.8s ease-in forwards; }
+#frag4 { animation: suck-in-frag 11s 0s ease-in forwards; }
+
+@keyframes suck-in-frag {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        top: 50%;
+        left: 50%;
+        transform: scale(0) rotate(1080deg);
+        opacity: 0;
+    }
 }
