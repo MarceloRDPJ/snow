@@ -43,23 +43,9 @@ body {
     transform: scale(1);
 }
 
-.preview-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
-}
-
-.preview-card img {
-    max-width: 150px;
-    border-radius: 5px;
-    border: 1px solid var(--accent-color-secondary);
-}
-
 .preview-card h3 {
     font-family: var(--font-title);
     color: var(--primary-color);
     margin: 0;
-    font-size: 1rem;
-    text-align: center;
+    font-size: 1.2rem;
 }
