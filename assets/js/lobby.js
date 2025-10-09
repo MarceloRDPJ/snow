@@ -121,7 +121,13 @@ class SolarSystem {
 
             if (data.textureUrl) {
                 const texture = textureLoader.load(data.textureUrl);
-                material = new THREE.MeshStandardMaterial({ map: texture, metalness: 0.7, roughness: 0.5 });
+                material = new THREE.MeshStandardMaterial({
+                    map: texture,
+                    metalness: 0.7,
+                    roughness: 0.5,
+                    emissive: 0xffffff,
+                    emissiveIntensity: 0.15
+                });
             } else {
                 // Apply a cyberpunk wireframe material for planets without a texture
                 material = new THREE.MeshStandardMaterial({
