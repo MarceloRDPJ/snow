@@ -1,69 +1,166 @@
 /* pages/construction/construction.css */
 
+:root {
+    --hole-glow-color: rgba(255, 0, 255, 0.6); /* Magenta glow */
+}
+
 body {
-    overflow: hidden; /* Previne scroll na página estática */
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--color-bg); /* CORRECTED */
+    color: var(--text-primary); /* CORRECTED */
+    font-family: var(--font-main);
 }
 
-.construction-container {
+.crash-scene-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    max-width: 600px;
-    padding: 2rem;
 }
 
-.animation-wrapper {
-    width: 200px;
+.hole-effect {
+    position: absolute;
+    width: 70vmin;
+    height: 70vmin;
+    background: radial-gradient(circle, rgba(40, 0, 40, 0.5) 0%, rgba(20, 0, 20, 0) 70%);
+    border-radius: 50%;
+    clip-path: polygon(
+        /* A jagged, irregular shape */
+        50% 0%, 61% 10%, 75% 8%, 85% 15%, 95% 30%, 100% 50%,
+        90% 70%, 80% 85%, 70% 95%, 50% 100%, 30% 95%, 20% 85%,
+        10% 70%, 0% 50%, 5% 30%, 15% 15%, 25% 8%, 39% 10%
+    );
+    animation: pulse-glow 3s infinite alternate ease-in-out;
+}
+
+.hole-effect::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: -10px; right: -10px; bottom: -10px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 10px var(--hole-glow-color),
+                inset 0 0 20px 10px var(--hole-glow-color);
+    filter: blur(5px);
+    z-index: -1;
+    clip-path: inherit; /* Make the glow follow the same jagged path */
+}
+
+@keyframes pulse-glow {
+    from {
+        transform: scale(0.98);
+        box-shadow: 0 0 20px 10px var(--hole-glow-color),
+                    inset 0 0 20px 10px var(--hole-glow-color);
+    }
+    to {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px 15px var(--hole-glow-color),
+                    inset 0 0 30px 15px var(--hole-glow-color);
+    }
+}
+
+.ship-container {
+    position: absolute;
+    width: 300px;
     height: 200px;
-    margin-bottom: 2rem;
-    transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1); /* Transição suave para a interatividade do rato */
+    z-index: 5; /* Position it above the hole but below the text */
+    animation: drift-ship 10s infinite alternate ease-in-out;
 }
 
-#blueprint-svg {
+#lego-ship-svg {
     width: 100%;
     height: 100%;
 }
 
-/* Animação de "desenho" para as linhas do SVG */
-.draw-animation path {
-    stroke-dasharray: 1000; /* Um valor grande o suficiente para cobrir o comprimento de qualquer linha */
-    stroke-dashoffset: 1000;
-    animation: draw-line 4s ease-in-out infinite alternate;
-}
-
-/* Adiciona um atraso escalonado para cada linha para um efeito de construção mais orgânico */
-.draw-animation path:nth-child(1) { animation-delay: 0s; }
-.draw-animation path:nth-child(2) { animation-delay: -1s; }
-.draw-animation path:nth-child(3) { animation-delay: -2s; }
-.draw-animation path:nth-child(4) { animation-delay: -3s; }
-
-@keyframes draw-line {
+@keyframes drift-ship {
+    from {
+        transform: translate(-5px, -5px) rotate(-1deg);
+    }
     to {
-        stroke-dashoffset: 0;
+        transform: translate(5px, 5px) rotate(1deg);
     }
 }
 
+.pilot-container {
+    position: absolute;
+    width: 100px;
+    height: 120px;
+    bottom: 20vh;
+    right: 30vw;
+    z-index: 6;
+    animation: pilot-worry 2s infinite alternate ease-in-out;
+}
+
+#lego-pilot-svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes pilot-worry {
+    from {
+        transform: translateY(0px) rotate(-2deg);
+    }
+    to {
+        transform: translateY(-5px) rotate(2deg);
+    }
+}
+
+.debris-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none; /* Make sure it doesn't block interactions */
+}
+
+#debris-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.spark {
+    animation: spark-animation 0.8s infinite;
+    opacity: 0;
+}
+
+.spark:nth-child(2) { animation-delay: 0.2s; }
+.spark:nth-child(3) { animation-delay: 0.4s; }
+.spark:nth-child(4) { animation-delay: 0.6s; }
+.spark:nth-child(5) { animation-delay: 0.1s; }
+
+@keyframes spark-animation {
+    0% { opacity: 0; transform: scale(0.5) translate(0, 0); }
+    50% { opacity: 1; transform: scale(1) translate(5px, -5px); }
+    100% { opacity: 0; transform: scale(0.5) translate(10px, -10px); }
+}
+
+.text-content {
+    position: relative;
+    z-index: 10;
+    max-width: 400px;
+}
+
 .text-content h1 {
-    font-family: var(--font-title);
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    font-family: var(--font-main); /* CORRECTED */
+    font-size: 3rem;
+    color: var(--accent-color); /* CORRECTED */
+    text-shadow: 0 0 10px var(--hole-glow-color);
+    margin-bottom: 1rem;
 }
 
 .text-content p {
     font-size: 1.1rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    line-height: 1.7;
+    color: var(--text-secondary); /* CORRECTED */
+    opacity: 0.8;
+    line-height: 1.6;
 }
 
 .back-link {
@@ -71,4 +168,17 @@ body {
     top: 2rem;
     left: 2rem;
     z-index: 100;
+    color: var(--text-secondary); /* CORRECTED */
+    transition: color 0.3s, text-shadow 0.3s;
+    border: 1px solid var(--text-secondary);
+    padding: 0.5rem;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    text-shadow: 0 0 10px var(--hole-glow-color);
+}
+.back-link svg {
+    display: block;
 }
