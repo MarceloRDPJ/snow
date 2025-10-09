@@ -1,29 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Slider functionality
+    // --- Slider Elements and Logic ---
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
 
     if (signUpButton) {
-        signUpButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
+        signUpButton.addEventListener('click', () => container.classList.add("right-panel-active"));
     }
-
     if (signInButton) {
-        signInButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-        });
+        signInButton.addEventListener('click', () => container.classList.remove("right-panel-active"));
     }
 
-    // --- Panda Animation Logic ---
-    const usernameRef = document.querySelector('input[type="email"]');
-    const passwordRef = document.querySelector('input[type="password"]');
+    // --- Panda Animation Elements ---
+    const allInputs = document.querySelectorAll('input');
     const eyeballs = document.querySelectorAll(".eyeball-l, .eyeball-r");
-    const handL = document.querySelector(".hand-l");
-    const handR = document.querySelector(".hand-r");
+    const eyeL = document.querySelector(".eyeball-l");
+    const eyeR = document.querySelector(".eyeball-r");
 
+    let isInputFocused = false;
+
+    // --- Core Animation Functions ---
     const moveEyes = (event) => {
+        if (isInputFocused) return;
         const { clientX, clientY } = event;
         const { innerWidth, innerHeight } = window;
         const normalizedX = (clientX / innerWidth) * 2 - 1;
@@ -31,17 +29,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const maxMove = 4;
         const moveX = normalizedX * maxMove;
         const moveY = normalizedY * maxMove;
-
-        eyeballs.forEach((eyeball) => {
+        eyeballs.forEach(eyeball => {
             eyeball.style.transform = `translate(-50%, -50%) translate(${moveX}px, ${moveY}px)`;
         });
     };
 
+    const closeEyes = () => {
+        eyeballs.forEach(eyeball => {
+            eyeball.style.height = '0.1em';
+            eyeball.style.top = '1em';
+        });
+    };
+
+    const openEyes = () => {
+         eyeballs.forEach(eyeball => {
+            eyeball.style.height = '0.6em';
+            eyeball.style.top = '50%';
+        });
+    };
+
     const onFocus = (event) => {
-        document.removeEventListener("mousemove", moveEyes);
-        if (event.target === passwordRef) {
-            handL.classList.add("hiding");
-            handR.classList.add("hiding");
+        isInputFocused = true;
+        if (event.target.type === 'password') {
+            closeEyes();
         } else {
             eyeballs.forEach(eyeball => {
                 eyeball.style.transform = 'translate(-50%, -50%) translate(0px, 5px)';
@@ -50,20 +60,42 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const onBlur = () => {
-        handL.classList.remove("hiding", "peeking");
-        handR.classList.remove("hiding", "peeking");
-        document.addEventListener("mousemove", onMouseMove);
+        isInputFocused = false;
+        openEyes();
+        eyeballs.forEach((eyeball) => {
+            eyeball.style.transform = `translate(-50%, -50%)`;
+        });
     };
 
-    document.addEventListener("mousemove", onMouseMove);
-
-    // We need to select the inputs more carefully as there are multiple
-    const allInputs = document.querySelectorAll('input');
+    // --- Attach Event Listeners ---
+    document.addEventListener("mousemove", moveEyes);
     allInputs.forEach(input => {
         input.addEventListener("focus", onFocus);
         input.addEventListener("blur", onBlur);
     });
 
-    // Note: The peeking logic for the password is not in the new HTML.
-    // This logic can be re-added if a toggle button is present.
+    const togglePasswordIcons = document.querySelectorAll(".toggle-password");
+    togglePasswordIcons.forEach(icon => {
+        icon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const passwordInput = icon.previousElementSibling;
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                // Peek with the right eye
+                if(eyeR) {
+                    eyeR.style.height = '0.6em';
+                    eyeR.style.top = '50%';
+                }
+            } else {
+                passwordInput.type = "password";
+                icon.innerHTML = '<i class="fas fa-eye"></i>';
+                // Close the right eye again
+                if(eyeR) {
+                    eyeR.style.height = '0.1em';
+                    eyeR.style.top = '1em';
+                }
+            }
+        });
+    });
 });
