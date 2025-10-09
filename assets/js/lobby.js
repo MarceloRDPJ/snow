@@ -33,13 +33,13 @@ class SolarSystem {
     init() {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        this.scene.background = new THREE.Color('#0a0a0a');
         this.camera.position.z = 50;
         this.camera.lookAt(0, 0, 0);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Balanced ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.6); // Softer ambient light
         this.scene.add(ambientLight);
 
+        this.createStars();
         this.createGrid();
         this.createCore();
         this.createPlanets();
@@ -49,6 +49,30 @@ class SolarSystem {
         window.addEventListener('click', () => this.onClick());
 
         this.animate();
+    }
+
+    createStars() {
+        const starGeometry = new THREE.BufferGeometry();
+        const starMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.7,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+
+        const starVertices = [];
+        for (let i = 0; i < 15000; i++) {
+            const x = (Math.random() - 0.5) * 2000;
+            const y = (Math.random() - 0.5) * 2000;
+            const z = (Math.random() - 0.5) * 2000;
+            starVertices.push(x, y, z);
+        }
+
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+
+        this.stars = new THREE.Points(starGeometry, starMaterial);
+        this.scene.add(this.stars);
     }
 
     createGrid() {
@@ -80,27 +104,26 @@ class SolarSystem {
 
     createPlanets() {
         this.planets = [];
+        const textureLoader = new THREE.TextureLoader();
         const planetData = [
-            { id: 'login', name: 'Login Project', orbitRadius: 20, speed: 0.5, color: '#00ffff', url: 'pages/login/index.html' },
-            { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#ff00ff', url: 'pages/construction/index.html' }
+            { id: 'login', name: 'Login Project', orbitRadius: 20, speed: 0.5, color: '#00ffff', url: 'pages/login/index.html', textureUrl: 'assets/images/projects/login.png' },
+            { id: 'construction', name: 'Página em Construção', orbitRadius: 35, speed: 0.3, color: '#ff00ff', url: 'pages/construction/index.html', textureUrl: 'assets/images/projects/construction.png' }
         ];
 
         planetData.forEach(data => {
             const planetGroup = new THREE.Group();
+            const texture = textureLoader.load(data.textureUrl);
 
-            // Using a single, stable geometry for all nodes to ensure rendering
-            const geometry = new THREE.TorusKnotGeometry(2.0, 0.5, 100, 16);
-            const material = new THREE.MeshStandardMaterial({
-                color: data.color,
-                emissive: data.color,
-                emissiveIntensity: 0.8,
-                metalness: 0.7,
-                roughness: 0.3
+            const geometry = new THREE.SphereGeometry(3, 32, 32);
+            const material = new THREE.MeshBasicMaterial({
+                map: texture,
             });
 
             const planetMesh = new THREE.Mesh(geometry, material);
             planetMesh.position.x = data.orbitRadius;
+
             planetGroup.add(planetMesh);
+
             this.scene.add(planetGroup);
             this.planets.push({ ...data, mesh: planetMesh, pivot: planetGroup });
         });
@@ -198,7 +221,6 @@ class SolarSystem {
     checkIntersections() {
         if (this.focusedPlanet || this.isAnimating) {
             if (this.currentlyHovered) {
-                this.currentlyHovered.mesh.material.emissiveIntensity = 0.3;
                 this.currentlyHovered = null;
             }
             return;
@@ -207,17 +229,7 @@ class SolarSystem {
         this.raycaster.setFromCamera(this.mouse, this.camera);
         const intersects = this.raycaster.intersectObjects(this.planets.map(p => p.mesh));
 
-        const hoveredPlanet = intersects.length > 0 ? this.planets.find(p => p.mesh === intersects[0].object) : null;
-
-        if (this.currentlyHovered !== hoveredPlanet) {
-            if (this.currentlyHovered) {
-                this.currentlyHovered.mesh.material.emissiveIntensity = 0.3;
-            }
-            this.currentlyHovered = hoveredPlanet;
-            if (this.currentlyHovered) {
-                this.currentlyHovered.mesh.material.emissiveIntensity = 0.8;
-            }
-        }
+        this.currentlyHovered = intersects.length > 0 ? this.planets.find(p => p.mesh === intersects[0].object) : null;
     }
 
     getScreenPosition(object3D) {
@@ -248,6 +260,10 @@ class SolarSystem {
         if (!this.isPaused) {
             const elapsedTime = this.clock.getElapsedTime();
 
+            if (this.stars) {
+                this.stars.rotation.y += 0.0001;
+            }
+
             if (this.core) {
                 this.core.rotation.y += 0.001;
                 this.core.rotation.x += 0.0005;
@@ -255,8 +271,9 @@ class SolarSystem {
             }
 
             this.planets.forEach(planet => {
+                planet.mesh.rotation.y += 0.002; // Self-rotation
                 if (this.focusedPlanet !== planet) {
-                    planet.pivot.rotation.y = elapsedTime * planet.speed;
+                    planet.pivot.rotation.y = elapsedTime * planet.speed; // Orbital rotation
                 }
             });
         }
