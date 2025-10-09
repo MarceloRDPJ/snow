@@ -139,7 +139,7 @@ body {
     width: 400px;
     z-index: 10;
     text-align: center;
-    animation: suck-in-text 8s 1s ease-in-out forwards;
+    animation: struggle-text 4s ease-in-out infinite alternate;
 }
 
 .back-link {
@@ -152,43 +152,40 @@ body {
     border: 1px solid var(--text-secondary);
     color: var(--text-secondary);
     text-decoration: none;
-    animation: suck-in-backlink 12s ease-in forwards;
+    animation: struggle-link 6s ease-in-out infinite alternate;
 }
 .back-link span {
     margin-left: 0.5rem;
 }
 
 /* Animations for being sucked in */
-@keyframes suck-in-text {
-    0% {
+@keyframes struggle-text {
+    from {
         transform: translateX(-50%) scale(1) rotate(0deg);
-        opacity: 1;
     }
-    100% {
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%) scale(0) rotate(720deg);
-        opacity: 0;
+    to {
+        transform: translateX(-50%) translateY(20vh) scale(0.8) rotate(5deg);
     }
 }
-@keyframes suck-in-backlink {
-    0% { transform: scale(1) rotate(0deg); opacity: 1; }
-    100% { transform: scale(0) rotate(360deg) translate(-20vw, 20vh); opacity: 0; }
-}
-
-#frag1 { animation: suck-in-frag 10s 0.5s ease-in forwards; }
-#frag2 { animation: suck-in-frag 12s 0.2s ease-in forwards; }
-#frag3 { animation: suck-in-frag 9s 0.8s ease-in forwards; }
-#frag4 { animation: suck-in-frag 11s 0s ease-in forwards; }
-
-@keyframes suck-in-frag {
-    0% {
+@keyframes struggle-link {
+    from {
         transform: scale(1) rotate(0deg);
-        opacity: 1;
     }
-    100% {
-        top: 50%;
-        left: 50%;
-        transform: scale(0) rotate(1080deg);
-        opacity: 0;
+    to {
+        transform: scale(0.9) rotate(-3deg) translate(10vw, 10vh);
+    }
+}
+
+#frag1 { animation: struggle-frag 10s 0.5s ease-in-out infinite alternate; }
+#frag2 { animation: struggle-frag 12s 0.2s ease-in-out infinite alternate; }
+#frag3 { animation: struggle-frag 9s 0.8s ease-in-out infinite alternate; }
+#frag4 { animation: struggle-frag 11s 0s ease-in-out infinite alternate; }
+
+@keyframes struggle-frag {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: translate(5vw, 5vh) scale(0.95) rotate(15deg);
     }
 }
